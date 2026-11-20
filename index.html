@@ -704,6 +704,7 @@ h1 .gold-dot { color: var(--gold); }
   var over = false, busy = false, result = null;
   var clocks = { w: START, b: START };
   var startTs = 0;
+  var preStates = [];   // 每步走子前的时钟快照，悔棋时回滚
   var clockRunning = false, clockTimer = null, lastTs = 0;
   var captured = { w: [], b: [] };
   var drag = null, pendingMove = null;
@@ -936,6 +937,7 @@ h1 .gold-dot { color: var(--gold); }
     sel = null; legal = []; lastMove = null; drag = null;
     over = false; busy = false; result = null;
     clocks = { w: START, b: START };
+    preStates = [];
     clockRunning = false;
     captured = { w: [], b: [] };
     if (clockTimer) { clearInterval(clockTimer); clockTimer = null; }
@@ -1069,8 +1071,10 @@ h1 .gold-dot { color: var(--gold); }
   }
 
   function exec(from, to, promo) {
+    var pre = { w: clocks.w, b: clocks.b };
     var mv = game.move({ from: from, to: to, promotion: promo || undefined });
     if (!mv) { syncBoard(null); return; }
+    preStates.push(pre);
     sel = null; legal = [];
     afterMove(mv);
   }
@@ -1205,9 +1209,10 @@ h1 .gold-dot { color: var(--gold); }
       try { mv = aiChoose(); } catch (e) { mv = null; }
       setThinking(false);
       if (!mv) { busy = false; return; }
+      var pre = { w: clocks.w, b: clocks.b };
       var m = game.move(mv);
       busy = false;
-      if (m) afterMove(m);
+      if (m) { preStates.push(pre); afterMove(m); }
       else syncBoard(null);
     }, delay || 300);
   }
@@ -1396,7 +1401,11 @@ h1 .gold-dot { color: var(--gold); }
     var n = game.history().length;
     if (!n) return;
     game.undo();
-    if (mode === 'pve' && game.history().length > 0 && game.turn() !== humanColor) game.undo();
+    if (preStates.length) clocks = preStates.pop();
+    if (mode === 'pve' && game.history().length > 0 && game.turn() !== humanColor) {
+      game.undo();
+      if (preStates.length) clocks = preStates.pop();
+    }
     // 重新计算吃子与最后一步
     captured = { w: [], b: [] };
     var hist = game.history({ verbose: true });
