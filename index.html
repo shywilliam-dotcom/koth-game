@@ -141,6 +141,7 @@ h1 .gold-dot { color: var(--gold); }
   transition: border-color .2s, transform .2s, box-shadow .2s;
   display: flex; flex-direction: column; gap: 10px; min-height: 148px;
 }
+.mode-card > .cta { margin-top: auto; }
 .mode-card:hover { border-color: var(--gold-dim); transform: translateY(-2px); box-shadow: 0 18px 40px -24px rgba(214, 168, 80, .55); }
 .mc-top { display: flex; align-items: center; gap: 10px; }
 .mc-ico { width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center;
@@ -156,6 +157,8 @@ h1 .gold-dot { color: var(--gold); }
   transition: .16s;
 }
 .seg button:hover { color: var(--ink); }
+.lv-hint { font-size: 11.5px; line-height: 1.6; color: var(--ink-dim, #8d8478); letter-spacing: .02em; min-height: 1.6em; }
+.lv-hint b { color: var(--gold-2); font-weight: 600; }
 .seg button[aria-pressed="true"] { background: rgba(214, 168, 80, .14); color: var(--gold-2); border-color: var(--gold-dim); font-weight: 600; }
 
 
@@ -492,12 +495,13 @@ h1 .gold-dot { color: var(--gold); }
           <span class="mc-title">人机对战</span>
           <button class="mc-link" data-rules>规则详解</button>
         </div>
-        <div class="mc-desc">掷硬币定先，你可能执白或执黑；棋盘会按你的视角自动翻转。难度决定引擎的计算深度。</div>
+        <div class="mc-desc">掷硬币定先，你执白或执黑，棋盘按你的视角自动翻转。三档棋力：陪练会看漏、对手势均力敌、大师算到六七步。</div>
         <div class="seg" id="segLevel">
           <button data-level="easy" aria-pressed="false">简单</button>
           <button data-level="normal" aria-pressed="true">普通</button>
           <button data-level="hard" aria-pressed="false">困难</button>
         </div>
+        <div class="lv-hint" id="lvHint"></div>
         <button class="cta">开始对局<svg style="width:14px;height:14px"><use href="#i-arrow" xlink:href="#i-arrow"/></svg></button>
       </div>
 
@@ -509,6 +513,7 @@ h1 .gold-dot { color: var(--gold); }
         </div>
         <div class="mc-desc">同一台设备轮流走子，两人各守一侧，棋钟各自独立计时。</div>
         <div class="seg"><button data-rules style="flex:1">先看看规则</button></div>
+        <div class="lv-hint">60+7 菲舍尔钟 · 可无限悔棋 · 山顶抢攻</div>
         <button class="cta">开始双人对局<svg style="width:14px;height:14px"><use href="#i-arrow" xlink:href="#i-arrow"/></svg></button>
       </div>
     </div>
@@ -941,6 +946,7 @@ h1 .gold-dot { color: var(--gold); }
     clockRunning = false;
     captured = { w: [], b: [] };
     if (clockTimer) { clearInterval(clockTimer); clockTimer = null; }
+    aiSeq++;
     $('ovResult').classList.remove('on');
     $('ovPromo').classList.remove('on');
 
@@ -1198,201 +1204,47 @@ h1 .gold-dot { color: var(--gold); }
     renderSkins();
   }
 
-  /* ================= AI ================= */
+  /* ================= AI（引擎在 Web Worker 里跑，避免卡住动画与棋钟） ================= */
+  var WORKER_SRC = "var Chess=function(r){var u=\"b\",s=\"w\",l=-1,_=\"p\",A=\"n\",S=\"b\",m=\"r\",y=\"q\",p=\"k\",t=\"pnbrqkPNBRQK\",e=\"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1\",g=[\"1-0\",\"0-1\",\"1/2-1/2\",\"*\"],C={b:[16,32,17,15],w:[-16,-32,-17,-15]},T={n:[-18,-33,-31,-14,18,33,31,14],b:[-17,-15,17,15],r:[-16,1,16,-1],q:[-17,-16,-15,1,17,16,15,-1],k:[-17,-16,-15,1,17,16,15,-1]},c=[20,0,0,0,0,0,0,24,0,0,0,0,0,0,20,0,0,20,0,0,0,0,0,24,0,0,0,0,0,20,0,0,0,0,20,0,0,0,0,24,0,0,0,0,20,0,0,0,0,0,0,20,0,0,0,24,0,0,0,20,0,0,0,0,0,0,0,0,20,0,0,24,0,0,20,0,0,0,0,0,0,0,0,0,0,20,2,24,2,20,0,0,0,0,0,0,0,0,0,0,0,2,53,56,53,2,0,0,0,0,0,0,24,24,24,24,24,24,56,0,56,24,24,24,24,24,24,0,0,0,0,0,0,2,53,56,53,2,0,0,0,0,0,0,0,0,0,0,0,20,2,24,2,20,0,0,0,0,0,0,0,0,0,0,20,0,0,24,0,0,20,0,0,0,0,0,0,0,0,20,0,0,0,24,0,0,0,20,0,0,0,0,0,0,20,0,0,0,0,24,0,0,0,0,20,0,0,0,0,20,0,0,0,0,0,24,0,0,0,0,0,20,0,0,20,0,0,0,0,0,0,24,0,0,0,0,0,0,20],v=[17,0,0,0,0,0,0,16,0,0,0,0,0,0,15,0,0,17,0,0,0,0,0,16,0,0,0,0,0,15,0,0,0,0,17,0,0,0,0,16,0,0,0,0,15,0,0,0,0,0,0,17,0,0,0,16,0,0,0,15,0,0,0,0,0,0,0,0,17,0,0,16,0,0,15,0,0,0,0,0,0,0,0,0,0,17,0,16,0,15,0,0,0,0,0,0,0,0,0,0,0,0,17,16,15,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,-1,-1,-1,-1,-1,-1,-1,0,0,0,0,0,0,0,-15,-16,-17,0,0,0,0,0,0,0,0,0,0,0,0,-15,0,-16,0,-17,0,0,0,0,0,0,0,0,0,0,-15,0,0,-16,0,0,-17,0,0,0,0,0,0,0,0,-15,0,0,0,-16,0,0,0,-17,0,0,0,0,0,0,-15,0,0,0,0,-16,0,0,0,0,-17,0,0,0,0,-15,0,0,0,0,0,-16,0,0,0,0,0,-17,0,0,-15,0,0,0,0,0,0,-16,0,0,0,0,0,0,-17],h={p:0,n:1,b:2,r:3,q:4,k:5},o={NORMAL:\"n\",CAPTURE:\"c\",BIG_PAWN:\"b\",EP_CAPTURE:\"e\",PROMOTION:\"p\",KSIDE_CASTLE:\"k\",QSIDE_CASTLE:\"q\"},I={NORMAL:1,CAPTURE:2,BIG_PAWN:4,EP_CAPTURE:8,PROMOTION:16,KSIDE_CASTLE:32,QSIDE_CASTLE:64},P=7,w=6,L=1,R=0,N={a8:0,b8:1,c8:2,d8:3,e8:4,f8:5,g8:6,h8:7,a7:16,b7:17,c7:18,d7:19,e7:20,f7:21,g7:22,h7:23,a6:32,b6:33,c6:34,d6:35,e6:36,f6:37,g6:38,h6:39,a5:48,b5:49,c5:50,d5:51,e5:52,f5:53,g5:54,h5:55,a4:64,b4:65,c4:66,d4:67,e4:68,f4:69,g4:70,h4:71,a3:80,b3:81,c3:82,d3:83,e3:84,f3:85,g3:86,h3:87,a2:96,b2:97,c2:98,d2:99,e2:100,f2:101,g2:102,h2:103,a1:112,b1:113,c1:114,d1:115,e1:116,f1:117,g1:118,h1:119},E={w:[{square:N.a1,flag:I.QSIDE_CASTLE},{square:N.h1,flag:I.KSIDE_CASTLE}],b:[{square:N.a8,flag:I.QSIDE_CASTLE},{square:N.h8,flag:I.KSIDE_CASTLE}]},O=new Array(128),k={w:l,b:l},q=s,D={w:0,b:0},K=l,d=0,b=1,Q=[],U={};function x(r){void 0===r&&(r=!1),O=new Array(128),k={w:l,b:l},q=s,D={w:0,b:0},K=l,d=0,b=1,Q=[],r||(U={}),F(M())}function j(){B(e)}function B(r,e){void 0===e&&(e=!1);var n=r.split(/\\s+/),t=n[0],o=0;if(!$(r).valid)return!1;x(e);for(var i=0;i<t.length;i++){var f=t.charAt(i);if(\"/\"===f)o+=8;else if(-1!==\"0123456789\".indexOf(f))o+=parseInt(f,10);else{var a=f<\"a\"?s:u;W({type:f.toLowerCase(),color:a},fr(o)),o++}}return q=n[1],-1<n[2].indexOf(\"K\")&&(D.w|=I.KSIDE_CASTLE),-1<n[2].indexOf(\"Q\")&&(D.w|=I.QSIDE_CASTLE),-1<n[2].indexOf(\"k\")&&(D.b|=I.KSIDE_CASTLE),-1<n[2].indexOf(\"q\")&&(D.b|=I.QSIDE_CASTLE),K=\"-\"===n[3]?l:N[n[3]],d=parseInt(n[4],10),b=parseInt(n[5],10),F(M()),!0}function $(r){var e=\"No errors.\",n=\"FEN string must contain six space-delimited fields.\",t=\"6th field (move number) must be a positive integer.\",o=\"5th field (half move counter) must be a non-negative integer.\",i=\"4th field (en-passant square) is invalid.\",f=\"3rd field (castling availability) is invalid.\",a=\"2nd field (side to move) is invalid.\",l=\"1st field (piece positions) does not contain 8 '/'-delimited rows.\",u=\"1st field (piece positions) is invalid [consecutive numbers].\",s=\"1st field (piece positions) is invalid [invalid piece].\",p=\"1st field (piece positions) is invalid [row too large].\",c=\"Illegal en-passant square\",v=r.split(/\\s+/);if(6!==v.length)return{valid:!1,error_number:1,error:n};if(isNaN(v[5])||parseInt(v[5],10)<=0)return{valid:!1,error_number:2,error:t};if(isNaN(v[4])||parseInt(v[4],10)<0)return{valid:!1,error_number:3,error:o};if(!/^(-|[abcdefgh][36])$/.test(v[3]))return{valid:!1,error_number:4,error:i};if(!/^(KQ?k?q?|Qk?q?|kq?|q|-)$/.test(v[2]))return{valid:!1,error_number:5,error:f};if(!/^(w|b)$/.test(v[1]))return{valid:!1,error_number:6,error:a};var g=v[0].split(\"/\");if(8!==g.length)return{valid:!1,error_number:7,error:l};for(var h=0;h<g.length;h++){for(var E=0,d=!1,b=0;b<g[h].length;b++)if(isNaN(g[h][b])){if(!/^[prnbqkPRNBQK]$/.test(g[h][b]))return{valid:!1,error_number:9,error:s};E+=1,d=!1}else{if(d)return{valid:!1,error_number:8,error:u};E+=parseInt(g[h][b],10),d=!0}if(8!==E)return{valid:!1,error_number:10,error:p}}return\"3\"==v[3][1]&&\"w\"==v[1]||\"6\"==v[3][1]&&\"b\"==v[1]?{valid:!1,error_number:11,error:c}:{valid:!0,error_number:0,error:e}}function M(){for(var r=0,e=\"\",n=N.a8;n<=N.h1;n++){if(null==O[n])r++;else{0<r&&(e+=r,r=0);var t=O[n].color,o=O[n].type;e+=t===s?o.toUpperCase():o.toLowerCase()}n+1&136&&(0<r&&(e+=r),n!==N.h1&&(e+=\"/\"),r=0,n+=8)}var i=\"\";D[s]&I.KSIDE_CASTLE&&(i+=\"K\"),D[s]&I.QSIDE_CASTLE&&(i+=\"Q\"),D[u]&I.KSIDE_CASTLE&&(i+=\"k\"),D[u]&I.QSIDE_CASTLE&&(i+=\"q\"),i=i||\"-\";var f=K===l?\"-\":fr(K);return[e,q,i,f,d,b].join(\" \")}function G(r){for(var e=0;e<r.length;e+=2)\"string\"==typeof r[e]&&\"string\"==typeof r[e+1]&&(U[r[e]]=r[e+1]);return U}function F(r){0<Q.length||(r!==e?(U.SetUp=\"1\",U.FEN=r):(delete U.SetUp,delete U.FEN))}function i(r){var e=O[N[r]];return e?{type:e.type,color:e.color}:null}function W(r,e){if(!(\"type\"in r&&\"color\"in r))return!1;if(-1===t.indexOf(r.type.toLowerCase()))return!1;if(!(e in N))return!1;var n=N[e];return(r.type!=p||k[r.color]==l||k[r.color]==n)&&(O[n]={type:r.type,color:r.color},r.type===p&&(k[r.color]=n),F(M()),!0)}function H(r,e,n,t,o){var i={color:q,from:e,to:n,flags:t,piece:r[e].type};return o&&(i.flags|=I.PROMOTION,i.promotion=o),r[n]?i.captured=r[n].type:t&I.EP_CAPTURE&&(i.captured=_),i}function Z(r){function e(r,e,n,t,o){if(r[n].type!==_||or(t)!==R&&or(t)!==P)e.push(H(r,n,t,o));else for(var i=[y,m,S,A],f=0,a=i.length;f<a;f++)e.push(H(r,n,t,o,i[f]))}var n=[],t=q,o=ar(t),i={b:L,w:w},f=N.a8,a=N.h1,l=!1,u=!(void 0!==r&&\"legal\"in r)||r.legal;if(void 0!==r&&\"square\"in r){if(!(r.square in N))return[];f=a=N[r.square],l=!0}for(var s=f;s<=a;s++)if(136&s)s+=7;else{var p=O[s];if(null!=p&&p.color===t)if(p.type===_){var c=s+C[t][0];if(null==O[c]){e(O,n,s,c,I.NORMAL);c=s+C[t][1];i[t]===or(s)&&null==O[c]&&e(O,n,s,c,I.BIG_PAWN)}for(v=2;v<4;v++){136&(c=s+C[t][v])||(null!=O[c]&&O[c].color===o?e(O,n,s,c,I.CAPTURE):c===K&&e(O,n,s,K,I.EP_CAPTURE))}}else for(var v=0,g=T[p.type].length;v<g;v++){var h=T[p.type][v];for(c=s;!(136&(c+=h));){if(null!=O[c]){if(O[c].color===t)break;e(O,n,s,c,I.CAPTURE);break}if(e(O,n,s,c,I.NORMAL),\"n\"===p.type||\"k\"===p.type)break}}}if(!l||a===k[t]){if(D[t]&I.KSIDE_CASTLE){var E=(d=k[t])+2;null!=O[d+1]||null!=O[E]||V(o,k[t])||V(o,d+1)||V(o,E)||e(O,n,k[t],E,I.KSIDE_CASTLE)}if(D[t]&I.QSIDE_CASTLE){var d;E=(d=k[t])-2;null!=O[d-1]||null!=O[d-2]||null!=O[d-3]||V(o,k[t])||V(o,d-1)||V(o,E)||e(O,n,k[t],E,I.QSIDE_CASTLE)}}if(!u)return n;var b=[];for(s=0,g=n.length;s<g;s++)er(n[s]),X(t)||b.push(n[s]),nr();return b}function z(r,e){var n=\"\";if(r.flags&I.KSIDE_CASTLE)n=\"O-O\";else if(r.flags&I.QSIDE_CASTLE)n=\"O-O-O\";else{var t=function(r,e){for(var n=Z({legal:!e}),t=r.from,o=r.to,i=r.piece,f=0,a=0,l=0,u=0,s=n.length;u<s;u++){var p=n[u].from,c=n[u].to,v=n[u].piece;i===v&&t!==p&&o===c&&(f++,or(t)===or(p)&&a++,ir(t)===ir(p)&&l++)}if(0<f)return 0<a&&0<l?fr(t):0<l?fr(t).charAt(1):fr(t).charAt(0);return\"\"}(r,e);r.piece!==_&&(n+=r.piece.toUpperCase()+t),r.flags&(I.CAPTURE|I.EP_CAPTURE)&&(r.piece===_&&(n+=fr(r.from)[0]),n+=\"x\"),n+=fr(r.to),r.flags&I.PROMOTION&&(n+=\"=\"+r.promotion.toUpperCase())}return er(r),f()&&(a()?n+=\"#\":n+=\"+\"),nr(),n}function J(r){return r.replace(/=/,\"\").replace(/[+#]?[?!]*$/,\"\")}function V(r,e){for(var n=N.a8;n<=N.h1;n++)if(136&n)n+=7;else if(null!=O[n]&&O[n].color===r){var t=O[n],o=n-e,i=119+o;if(c[i]&1<<h[t.type]){if(t.type===_){if(0<o){if(t.color===s)return!0}else if(t.color===u)return!0;continue}if(\"n\"===t.type||\"k\"===t.type)return!0;for(var f=v[i],a=n+f,l=!1;a!==e;){if(null!=O[a]){l=!0;break}a+=f}if(!l)return!0}}return!1}function X(r){return V(ar(r),k[r])}function f(){return X(q)}function a(){return f()&&0===Z().length}function n(){return!f()&&0===Z().length}function Y(){for(var r={},e=[],n=0,t=0,o=N.a8;o<=N.h1;o++)if(t=(t+1)%2,136&o)o+=7;else{var i=O[o];i&&(r[i.type]=i.type in r?r[i.type]+1:1,i.type===S&&e.push(t),n++)}if(2===n)return!0;if(3===n&&(1===r[S]||1===r[A]))return!0;if(n===r[S]+2){var f=0,a=e.length;for(o=0;o<a;o++)f+=e[o];if(0===f||f===a)return!0}return!1}function rr(){for(var r=[],e={},n=!1;;){var t=nr();if(!t)break;r.push(t)}for(;;){var o=M().split(\" \").slice(0,4).join(\" \");if(e[o]=o in e?e[o]+1:1,3<=e[o]&&(n=!0),!r.length)break;er(r.pop())}return n}function er(r){var e,n=q,t=ar(n);if(e=r,Q.push({move:e,kings:{b:k.b,w:k.w},turn:q,castling:{b:D.b,w:D.w},ep_square:K,half_moves:d,move_number:b}),O[r.to]=O[r.from],O[r.from]=null,r.flags&I.EP_CAPTURE&&(q===u?O[r.to-16]=null:O[r.to+16]=null),r.flags&I.PROMOTION&&(O[r.to]={type:r.promotion,color:n}),O[r.to].type===p){if(k[O[r.to].color]=r.to,r.flags&I.KSIDE_CASTLE){var o=r.to-1,i=r.to+1;O[o]=O[i],O[i]=null}else if(r.flags&I.QSIDE_CASTLE){o=r.to+1,i=r.to-2;O[o]=O[i],O[i]=null}D[n]=\"\"}if(D[n])for(var f=0,a=E[n].length;f<a;f++)if(r.from===E[n][f].square&&D[n]&E[n][f].flag){D[n]^=E[n][f].flag;break}if(D[t])for(f=0,a=E[t].length;f<a;f++)if(r.to===E[t][f].square&&D[t]&E[t][f].flag){D[t]^=E[t][f].flag;break}K=r.flags&I.BIG_PAWN?\"b\"===q?r.to-16:r.to+16:l,r.piece===_||r.flags&(I.CAPTURE|I.EP_CAPTURE)?d=0:d++,q===u&&b++,q=ar(q)}function nr(){var r=Q.pop();if(null==r)return null;var e=r.move;k=r.kings,q=r.turn,D=r.castling,K=r.ep_square,d=r.half_moves,b=r.move_number;var n,t,o=q,i=ar(q);if(O[e.from]=O[e.to],O[e.from].type=e.piece,O[e.to]=null,e.flags&I.CAPTURE)O[e.to]={type:e.captured,color:i};else if(e.flags&I.EP_CAPTURE){var f;f=o===u?e.to-16:e.to+16,O[f]={type:_,color:i}}e.flags&(I.KSIDE_CASTLE|I.QSIDE_CASTLE)&&(e.flags&I.KSIDE_CASTLE?(n=e.to+1,t=e.to-1):e.flags&I.QSIDE_CASTLE&&(n=e.to-2,t=e.to+1),O[n]=O[t],O[t]=null);return e}function tr(r,e){var n=J(r);if(e){var t=n.match(/([pnbrqkPNBRQK])?([a-h][1-8])x?-?([a-h][1-8])([qrbnQRBN])?/);if(t)var o=t[1],i=t[2],f=t[3],a=t[4]}for(var l=Z(),u=0,s=l.length;u<s;u++){if(n===J(z(l[u]))||e&&n===J(z(l[u],!0)))return l[u];if(t&&(!o||o.toLowerCase()==l[u].piece)&&N[i]==l[u].from&&N[f]==l[u].to&&(!a||a.toLowerCase()==l[u].promotion))return l[u]}return null}function or(r){return r>>4}function ir(r){return 15&r}function fr(r){var e=ir(r),n=or(r);return\"abcdefgh\".substring(e,e+1)+\"87654321\".substring(n,n+1)}function ar(r){return r===s?u:s}function lr(r){var e=function r(e){var n=e instanceof Array?[]:{};for(var t in e)n[t]=\"object\"==typeof t?r(e[t]):e[t];return n}(r);e.san=z(e,!1),e.to=fr(e.to),e.from=fr(e.from);var n=\"\";for(var t in I)I[t]&e.flags&&(n+=o[t]);return e.flags=n,e}function ur(r){return r.replace(/^\\s+|\\s+$/g,\"\")}return B(void 0===r?e:r),{WHITE:s,BLACK:u,PAWN:_,KNIGHT:A,BISHOP:S,ROOK:m,QUEEN:y,KING:p,SQUARES:function(){for(var r=[],e=N.a8;e<=N.h1;e++)136&e?e+=7:r.push(fr(e));return r}(),FLAGS:o,load:function(r){return B(r)},reset:function(){return j()},moves:function(r){for(var e=Z(r),n=[],t=0,o=e.length;t<o;t++)void 0!==r&&\"verbose\"in r&&r.verbose?n.push(lr(e[t])):n.push(z(e[t],!1));return n},in_check:function(){return f()},in_checkmate:function(){return a()},in_stalemate:function(){return n()},in_draw:function(){return 100<=d||n()||Y()||rr()},insufficient_material:function(){return Y()},in_threefold_repetition:function(){return rr()},game_over:function(){return 100<=d||a()||n()||Y()||rr()},validate_fen:function(r){return $(r)},fen:function(){return M()},board:function(){for(var r=[],e=[],n=N.a8;n<=N.h1;n++)null==O[n]?e.push(null):e.push({type:O[n].type,color:O[n].color}),n+1&136&&(r.push(e),e=[],n+=8);return r},pgn:function(r){var e=\"object\"==typeof r&&\"string\"==typeof r.newline_char?r.newline_char:\"\\n\",n=\"object\"==typeof r&&\"number\"==typeof r.max_width?r.max_width:0,t=[],o=!1;for(var i in U)t.push(\"[\"+i+' \"'+U[i]+'\"]'+e),o=!0;o&&Q.length&&t.push(e);for(var f=[];0<Q.length;)f.push(nr());for(var a=[],l=\"\";0<f.length;){var u=f.pop();Q.length||\"b\"!==u.color?\"w\"===u.color&&(l.length&&a.push(l),l=b+\".\"):l=b+\". ...\",l=l+\" \"+z(u,!1),er(u)}if(l.length&&a.push(l),void 0!==U.Result&&a.push(U.Result),0===n)return t.join(\"\")+a.join(\" \");var s=0;for(i=0;i<a.length;i++)s+a[i].length>n&&0!==i?(\" \"===t[t.length-1]&&t.pop(),t.push(e),s=0):0!==i&&(t.push(\" \"),s++),t.push(a[i]),s+=a[i].length;return t.join(\"\")},load_pgn:function(r,e){var n=void 0!==e&&\"sloppy\"in e&&e.sloppy;function l(r){return r.replace(/\\\\/g,\"\\\\\")}var t=\"object\"==typeof e&&\"string\"==typeof e.newline_char?e.newline_char:\"\\r?\\n\",o=new RegExp(\"^(\\\\[((?:\"+l(t)+\")|.)*\\\\])(?:\"+l(t)+\"){2}\"),i=o.test(r)?o.exec(r)[1]:\"\";j();var f=function(r,e){for(var n=\"object\"==typeof e&&\"string\"==typeof e.newline_char?e.newline_char:\"\\r?\\n\",t={},o=r.split(new RegExp(l(n))),i=\"\",f=\"\",a=0;a<o.length;a++)i=o[a].replace(/^\\[([A-Z][A-Za-z]*)\\s.*\\]$/,\"$1\"),f=o[a].replace(/^\\[[A-Za-z]+\\s\"(.*)\"\\]$/,\"$1\"),0<ur(i).length&&(t[i]=f);return t}(i,e);for(var a in f)G([a,f[a]]);if(\"1\"===f.SetUp&&!(\"FEN\"in f&&B(f.FEN,!0)))return!1;var u=r.replace(i,\"\").replace(new RegExp(l(t),\"g\"),\" \");u=u.replace(/(\\{[^}]+\\})+?/g,\"\");for(var s=/(\\([^\\(\\)]+\\))+?/g;s.test(u);)u=u.replace(s,\"\");var p=ur(u=(u=(u=u.replace(/\\d+\\.(\\.\\.)?/g,\"\")).replace(/\\.\\.\\./g,\"\")).replace(/\\$\\d+/g,\"\")).split(new RegExp(/\\s+/));p=p.join(\",\").replace(/,,+/g,\",\").split(\",\");for(var c=\"\",v=0;v<p.length-1;v++){if(null==(c=tr(p[v],n)))return!1;er(c)}if(c=p[p.length-1],-1<g.indexOf(c))!function(r){for(var e in r)return 1}(U)||void 0!==U.Result||G([\"Result\",c]);else{if(null==(c=tr(c,n)))return!1;er(c)}return!0},header:function(){return G(arguments)},ascii:function(){return function(){for(var r=\"   +------------------------+\\n\",e=N.a8;e<=N.h1;e++){if(0===ir(e)&&(r+=\" \"+\"87654321\"[or(e)]+\" |\"),null==O[e])r+=\" . \";else{var n=O[e].type;r+=\" \"+(O[e].color===s?n.toUpperCase():n.toLowerCase())+\" \"}e+1&136&&(r+=\"|\\n\",e+=8)}return r+=\"   +------------------------+\\n\",r+=\"     a  b  c  d  e  f  g  h\\n\"}()},turn:function(){return q},move:function(r,e){var n=void 0!==e&&\"sloppy\"in e&&e.sloppy,t=null;if(\"string\"==typeof r)t=tr(r,n);else if(\"object\"==typeof r)for(var o=Z(),i=0,f=o.length;i<f;i++)if(!(r.from!==fr(o[i].from)||r.to!==fr(o[i].to)||\"promotion\"in o[i]&&r.promotion!==o[i].promotion)){t=o[i];break}if(!t)return null;var a=lr(t);return er(t),a},undo:function(){var r=nr();return r?lr(r):null},clear:function(){return x()},put:function(r,e){return W(r,e)},get:function(r){return i(r)},remove:function(r){return n=i(e=r),O[N[e]]=null,n&&n.type===p&&(k[n.color]=l),F(M()),n;var e,n},perft:function(r){return function r(e){for(var n=Z({legal:!1}),t=0,o=q,i=0,f=n.length;i<f;i++)er(n[i]),X(o)||(0<e-1?t+=r(e-1):t++),nr();return t}(r)},square_color:function(r){if(r in N){var e=N[r];return(or(e)+ir(e))%2==0?\"light\":\"dark\"}return null},history:function(r){for(var e=[],n=[],t=(void 0!==r&&\"verbose\"in r&&r.verbose);0<Q.length;)e.push(nr());for(;0<e.length;){var o=e.pop();t?n.push(lr(o)):n.push(z(o)),er(o)}return n}}};\"undefined\"!=typeof exports&&(exports.Chess=Chess),\"undefined\"!=typeof define&&define(function(){return Chess});\n;\n/* ===== \u5c71\u5dc5\u4e4b\u738b \u00b7 \u5f15\u64ce\uff08\u53ef\u5728 Web Worker \u6216 Node \u4e2d\u8dd1\uff09 ===== */\n(function (scope) {\n\n  /* ---------- \u5f00\u5c40\u5e93\uff1a\u5e38\u89c1\u6b63\u7edf\u5f00\u5c40\u7684\u5934\u51e0\u6b65\uff0c\u79d2\u51fa\u7740\u4e0d\u78e8\u53fd\u3001\u907f\u514d\u6bcf\u76d8\u540c\u4e00\u5f00\u5c40 ---------- */\n  var BOOK_LINES = [\n    'e4 e5 Nf3 Nc6 Bb5 a6 Ba4 Nf6 O-O Be7 Re1 b5 Bb3 d6 c3 O-O',\n    'e4 e5 Nf3 Nc6 Bc4 Bc5 c3 Nf6 d3 d6 O-O',\n    'e4 e5 Nf3 Nf6 Nxe5 d6 Nf3 Nxe4 d4 d5 Bd3',\n    'e4 c5 Nf3 d6 d4 cxd4 Nxd4 Nf6 Nc3 a6',\n    'e4 c6 d4 d5 Nc3 dxe4 Nxe4 Bf5 Ng3 Bg6',\n    'e4 e6 d4 d5 Nc3 Nf6 Bg5 Be7 e5 Nfd7',\n    'd4 d5 c4 e6 Nc3 Nf6 Bg5 Be7 e3 O-O',\n    'd4 Nf6 c4 g6 Nc3 Bg7 e4 d6 Nf3 O-O',\n    'd4 d5 c4 c6 Nf3 Nf6 Nc3 dxc4 a4 Bf5',\n    'Nf3 d5 g3 Nf6 Bg2 g6 O-O Bg7',\n    'c4 e5 Nc3 Nf6 g3 d5 cxd5 Nxd5'\n  ];\n  var BOOK = null;\n  function bookKey(fen) { return fen.split(' ').slice(0, 4).join(' '); }\n  function buildBook() {\n    BOOK = {};\n    for (var i = 0; i < BOOK_LINES.length; i++) {\n      var g = new Chess(), sans = BOOK_LINES[i].split(' ');\n      for (var j = 0; j < sans.length; j++) {\n        var k = bookKey(g.fen());\n        if (!BOOK[k]) BOOK[k] = [];\n        if (BOOK[k].indexOf(sans[j]) < 0) BOOK[k].push(sans[j]);\n        if (!g.move(sans[j])) break;\n      }\n    }\n  }\n\n  var VAL = { p: 100, n: 320, b: 330, r: 500, q: 900, k: 20000 };\n  var MATE = 1000000;\n  var HILL = ['d4', 'e4', 'd5', 'e5'];\n  var FILES = 'abcdefgh';\n\n  /* \u4e09\u6863\u96be\u5ea6\uff1a\u65b0\u624b\u966a\u7ec3 / \u52bf\u5747\u529b\u654c / \u78be\u538b\u6311\u6218 */\n  var CFG = {\n    easy:   { depth: 2, ms: 90,   blunder: 0.28, noise: 70,  quiesce: 0 },\n    normal: { depth: 5, ms: 520,  blunder: 0.05, noise: 18,  quiesce: 2 },\n    hard:   { depth: 6, ms: 1600, blunder: 0.00, noise: 0,   quiesce: 4 }\n  };\n\n  function sq2rc(s) { return { c: FILES.indexOf(s[0]), r: 8 - parseInt(s[1], 10) }; }\n  function rc2sq(r, c) { return FILES[c] + (8 - r); }\n  function distToHill(r, c) {\n    var best = 99;\n    for (var i = 0; i < HILL.length; i++) {\n      var o = sq2rc(HILL[i]);\n      var d = Math.max(Math.abs(r - o.r), Math.abs(c - o.c));\n      if (d < best) best = d;\n    }\n    return best;\n  }\n\n  /* \u7ecf\u5178 simplified-evaluation \u7684 PST \u8868\uff08\u767d\u65b9\u89c6\u89d2\uff0c\u7b2c 0 \u884c = \u7b2c 8 \u6392\uff09 */\n  var PST = {\n    p: [0, 0, 0, 0, 0, 0, 0, 0,\n      50, 50, 50, 50, 50, 50, 50, 50,\n      10, 10, 20, 30, 30, 20, 10, 10,\n      5, 5, 10, 25, 25, 10, 5, 5,\n      0, 0, 0, 20, 20, 0, 0, 0,\n      5, -5, -10, 0, 0, -10, -5, 5,\n      5, 10, 10, -20, -20, 10, 10, 5,\n      0, 0, 0, 0, 0, 0, 0, 0],\n    n: [-50, -40, -30, -30, -30, -30, -40, -50,\n      -40, -20, 0, 0, 0, 0, -20, -40,\n      -30, 0, 10, 15, 15, 10, 0, -30,\n      -30, 5, 15, 20, 20, 15, 5, -30,\n      -30, 0, 15, 20, 20, 15, 0, -30,\n      -30, 5, 10, 15, 15, 10, 5, -30,\n      -40, -20, 0, 5, 5, 0, -20, -40,\n      -50, -40, -30, -30, -30, -30, -40, -50],\n    b: [-20, -10, -10, -10, -10, -10, -10, -20,\n      -10, 0, 0, 0, 0, 0, 0, -10,\n      -10, 0, 5, 10, 10, 5, 0, -10,\n      -10, 5, 5, 10, 10, 5, 5, -10,\n      -10, 0, 10, 10, 10, 10, 0, -10,\n      -10, 10, 10, 10, 10, 10, 10, -10,\n      -10, 5, 0, 0, 0, 0, 5, -10,\n      -20, -10, -10, -10, -10, -10, -10, -20],\n    r: [0, 0, 0, 0, 0, 0, 0, 0,\n      5, 10, 10, 10, 10, 10, 10, 5,\n      -5, 0, 0, 0, 0, 0, 0, -5,\n      -5, 0, 0, 0, 0, 0, 0, -5,\n      -5, 0, 0, 0, 0, 0, 0, -5,\n      -5, 0, 0, 0, 0, 0, 0, -5,\n      -5, 0, 0, 0, 0, 0, 0, -5,\n      0, 0, 0, 5, 5, 0, 0, 0],\n    q: [-20, -10, -10, -5, -5, -10, -10, -20,\n      -10, 0, 0, 0, 0, 0, 0, -10,\n      -10, 0, 5, 5, 5, 5, 0, -10,\n      -5, 0, 5, 5, 5, 5, 0, -5,\n      0, 0, 5, 5, 5, 5, 0, -5,\n      -10, 5, 5, 5, 5, 5, 0, -10,\n      -10, 0, 5, 0, 0, 0, 0, -10,\n      -20, -10, -10, -5, -5, -10, -10, -20],\n    k: [-30, -40, -40, -50, -50, -40, -40, -30,\n      -30, -40, -40, -50, -50, -40, -40, -30,\n      -30, -40, -40, -50, -50, -40, -40, -30,\n      -30, -40, -40, -50, -50, -40, -40, -30,\n      -20, -30, -30, -40, -40, -30, -30, -20,\n      -10, -20, -20, -20, -20, -20, -20, -10,\n      20, 20, 0, 0, 0, 0, 20, 20,\n      20, 30, 10, 0, 0, 10, 30, 20]\n  };\n\n  /* \u8fd4\u56de\uff1a\u4ece\u884c\u68cb\u65b9\u89c6\u89d2\u7684\u5206\u6570 */\n  function evaluate(g) {\n    var bd = g.board(), s = 0;\n    for (var r = 0; r < 8; r++) {\n      for (var c = 0; c < 8; c++) {\n        var p = bd[r][c];\n        if (!p) continue;\n        var idx = p.color === 'w' ? (r * 8 + c) : ((7 - r) * 8 + c);\n        var v = VAL[p.type] + PST[p.type][idx];\n        if (p.type === 'k') {\n          v -= distToHill(r, c) * 12;                       // \u738b\u79bb\u5c71\u9876\u8d8a\u8fd1\u8d8a\u503c\u94b1\n          if (HILL.indexOf(rc2sq(r, c)) >= 0) v += 320;      // \u738b\u5df2\u5360\u5c71\u9876\n        }\n        s += p.color === 'w' ? v : -v;\n      }\n    }\n    return g.turn() === 'w' ? s : -s;\n  }\n\n  function isHillMove(m) { return m.piece === 'k' && HILL.indexOf(m.to) >= 0; }\n\n  /* MVV-LVA \u8d70\u6cd5\u6392\u5e8f\uff1a\u5403\u5927\u5b50\u4f18\u5148\u3001\u5347\u53d8\u4f18\u5148\u3001\u767b\u9876/\u5c06\u519b\u9760\u524d */\n  function orderMoves(moves) {\n    moves.forEach(function (m) {\n      var s = 0;\n      if (m.captured) s += 10 * (VAL[m.captured] || 0) - (VAL[m.piece] || 0) / 10;\n      if (m.flags.indexOf('p') >= 0) s += 900;\n      if (isHillMove(m)) s += 5000;\n      if (m.san && m.san.indexOf('+') >= 0) s += 40;\n      m.__o = s;\n    });\n    moves.sort(function (a, b) { return b.__o - a.__o; });\n    return moves;\n  }\n\n  var deadline = 0, nodes = 0, aborted = false;\n\n  function checkTime() {\n    nodes++;\n    if ((nodes & 63) === 0 && Date.now() > deadline) aborted = true;\n    return aborted;\n  }\n\n  /* \u9759\u6001\u5403\u5b50\u641c\u7d22\uff1a\u6d88\u9664\"\u5730\u5e73\u7ebf\u6548\u5e94\"\uff08\u56f0\u96be\u6863\u4e13\u7528\uff09 */\n  function quiesce(g, alpha, beta, ply, qd) {\n    var stand = evaluate(g);\n    if (stand >= beta) return beta;\n    if (stand > alpha) alpha = stand;\n    if (qd <= 0 || checkTime()) return alpha;\n\n    var caps = g.moves({ verbose: true }).filter(function (m) {\n      return m.captured || m.flags.indexOf('p') >= 0;\n    });\n    if (!caps.length) return alpha;\n    orderMoves(caps);\n    for (var i = 0; i < caps.length; i++) {\n      var m = caps[i];\n      g.move(m);\n      var sc = -quiesce(g, -beta, -alpha, ply + 1, qd - 1);\n      g.undo();\n      if (aborted) return alpha;\n      if (sc > alpha) alpha = sc;\n      if (alpha >= beta) break;\n    }\n    return alpha;\n  }\n\n  function negamax(g, depth, alpha, beta, ply, qd) {\n    if (checkTime()) return 0;\n    var moves = g.moves({ verbose: true });\n    if (!moves.length) return g.in_check() ? (-MATE + ply) : 0;\n    if (g.in_draw && g.in_draw()) return 0;\n\n    if (depth <= 0) {\n      if (qd > 0) return quiesce(g, alpha, beta, ply, qd);\n      return evaluate(g);\n    }\n    orderMoves(moves);\n    var best = -Infinity;\n    for (var i = 0; i < moves.length; i++) {\n      var m = moves[i];\n      g.move(m);\n      var sc;\n      if (isHillMove(m)) sc = MATE - ply;\n      else sc = -negamax(g, depth - 1, -beta, -alpha, ply + 1, qd);\n      g.undo();\n      if (aborted) return 0;\n      if (sc > best) best = sc;\n      if (best > alpha) alpha = best;\n      if (alpha >= beta) break;\n    }\n    return best;\n  }\n\n  function root(g, depth, prevBest) {\n    var moves = orderMoves(g.moves({ verbose: true }));\n    if (prevBest) {\n      var k = moves.findIndex(function (m) { return m.from === prevBest.from && m.to === prevBest.to; });\n      if (k > 0) { var t = moves[0]; moves[0] = moves[k]; moves[k] = t; }\n    }\n    var best = -Infinity, bestMoves = [];\n    for (var i = 0; i < moves.length; i++) {\n      var m = moves[i];\n      g.move(m);\n      var sc;\n      if (isHillMove(m)) sc = MATE;\n      else sc = -negamax(g, depth - 1, -Infinity, -best, 1, 0);\n      g.undo();\n      if (aborted) return null;\n      if (sc > best) { best = sc; bestMoves = [m]; }\n      else if (sc === best) bestMoves.push(m);\n    }\n    return { score: best, infos: bestMoves };\n  }\n\n  /* \u4e3b\u5165\u53e3\uff1a\u8fd4\u56de {from,to,promotion} \u6216 null */\n  function choose(fen, level, rnd, opt) {\n    var g = new Chess(fen);\n    var base = CFG[level] || CFG.normal, cfg = {};\n    for (var k in base) cfg[k] = base[k];\n    if (opt) for (var k2 in opt) cfg[k2] = opt[k2];\n    var moves = g.moves({ verbose: true });\n    if (!moves.length) return null;\n    var rand = typeof rnd === 'function' ? rnd : Math.random;\n\n    /* \u5f00\u5c40\u5e93\uff1a\u4e2d\u9ad8\u96be\u5ea6\u524d\u51e0\u6b65\u79d2\u51fa\u7740\uff0c\u5f00\u5c40\u4e0d\u78e8\u53fd\u4e5f\u4e0d\u91cd\u590d */\n    if (level !== 'easy' && rand() < 0.85) {\n      if (!BOOK) buildBook();\n      var bk = BOOK[bookKey(fen)];\n      if (bk && bk.length) {\n        var pick = bk[Math.floor(rand() * bk.length)];\n        for (var bi = 0; bi < moves.length; bi++) {\n          if (moves[bi].san === pick) {\n            return { from: moves[bi].from, to: moves[bi].to, promotion: moves[bi].promotion || null, book: true };\n          }\n        }\n      }\n    }\n\n    /* \u65b0\u624b\uff1a\u6709\u4e00\u5b9a\u6982\u7387\u4e71\u8d70\uff08\u4eba\u7c7b\"\u770b\u6f0f\"\u7684\u5efa\u6a21\uff09 */\n    if (cfg.blunder > 0 && rand() < cfg.blunder) {\n      var r = moves[Math.floor(rand() * moves.length)];\n      return { from: r.from, to: r.to, promotion: r.promotion || null };\n    }\n\n    deadline = Date.now() + cfg.ms;\n    nodes = 0; aborted = false;\n    var bestInfo = null, prev = null, usedDepth = 0;\n\n    for (var d = 1; d <= cfg.depth; d++) {\n      var res = root(g, d, prev);\n      if (!res || aborted) break;\n      prev = res.infos[0];\n      bestInfo = res;\n      usedDepth = d;\n      if (Date.now() > deadline - cfg.ms * 0.35) break;\n      if (res.score >= MATE - 100) break;          // \u5df2\u7ecf\u7b97\u5230\u5fc5\u80dc\uff0c\u4e0d\u7528\u518d\u6df1\n    }\n\n    if (!bestInfo) {\n      var f = moves[0];\n      return { from: f.from, to: f.to, promotion: f.promotion || null };\n    }\n    var pick = bestInfo.infos;\n    if (cfg.noise > 0 && pick.length === 1) {\n      /* \u540c\u5206\u5019\u9009 + \u8f7b\u5fae\u566a\u58f0\uff1a\u8ba9\u540c\u7ea7\u5bf9\u5c40\u4e0d\u91cd\u590d\u540c\u4e00\u76d8\u68cb */\n      pick = pick.slice();\n      var alt = moves.filter(function (m) { return m.from !== pick[0].from || m.to !== pick[0].to; });\n      if (alt.length && rand() < cfg.noise / 220) pick.push(alt[Math.floor(rand() * alt.length)]);\n    }\n    var chosen = pick[Math.floor(rand() * pick.length)];\n    return { from: chosen.from, to: chosen.to, promotion: chosen.promotion || null, depth: usedDepth, nodes: nodes };\n  }\n\n  scope.KothEngine = { choose: choose, CFG: CFG, evaluate: evaluate };\n\n  if (typeof importScripts === 'function' && typeof self !== 'undefined' && self.postMessage) {\n    self.onmessage = function (e) {\n      var d = e.data || {};\n      var t0 = Date.now();\n      var mv = choose(d.fen, d.level);\n      self.postMessage({ reqId: d.reqId, move: mv, ms: Date.now() - t0 });\n    };\n  }\n})(typeof self !== 'undefined' ? self : this);\n";
+  var aiSeq = 0, eng = null;
+
   function setThinking(on) { thinkTop.classList.toggle('on', !!on); }
+
+  try {
+    var workerUrl = URL.createObjectURL(new Blob([WORKER_SRC], { type: 'text/javascript' }));
+    eng = new Worker(workerUrl);
+    eng.onmessage = function (e) {
+      var d = e.data || {};
+      if (d.reqId !== aiSeq) return;          // 已重开/悔棋，丢弃过期结果
+      setThinking(false);
+      busy = false;
+      var mv = d.move;
+      if (!mv) { syncBoard(null); return; }
+      var pre = { w: clocks.w, b: clocks.b };
+      var m = game.move({ from: mv.from, to: mv.to, promotion: mv.promotion || undefined });
+      if (m) { preStates.push(pre); afterMove(m); }
+      else syncBoard(null);
+    };
+    eng.onerror = function () { eng = null; };
+  } catch (err) { eng = null; }
+
 
   function scheduleAI(delay) {
     busy = true;
     setThinking(true);
+    var reqId = ++aiSeq;
+    var fen = game.fen(), lv = level;
     setTimeout(function () {
-      var mv = null;
-      try { mv = aiChoose(); } catch (e) { mv = null; }
-      setThinking(false);
-      if (!mv) { busy = false; return; }
-      var pre = { w: clocks.w, b: clocks.b };
-      var m = game.move(mv);
-      busy = false;
-      if (m) { preStates.push(pre); afterMove(m); }
-      else syncBoard(null);
+      if (reqId !== aiSeq) return;
+      if (eng) { eng.postMessage({ fen: fen, level: lv, reqId: reqId }); return; }
+      // 极端兜底：Worker 不可用时随便挑一个合法走法
+      var moves = game.moves({ verbose: true });
+      setThinking(false); busy = false;
+      if (!moves.length) return;
+      var r = moves[Math.floor(Math.random() * moves.length)];
+      var m = game.move(r);
+      if (m) afterMove(m);
     }, delay || 300);
-  }
-
-  function orderMoves(moves) {
-    moves.forEach(function (m) {
-      var s = 0;
-      if (m.captured) s += 100 + (VAL[m.captured] || 0) / 10;
-      if (m.flags.indexOf('p') >= 0) s += 80;
-      if (m.san && m.san.indexOf('+') >= 0) s += 20;
-      m.__o = s;
-    });
-    moves.sort(function (a, b) { return b.__o - a.__o; });
-    return moves;
-  }
-
-  function aiChoose() {
-    var moves = game.moves({ verbose: true });
-    if (!moves.length) return null;
-
-    // 1) 一步登顶直接获胜
-    for (var i = 0; i < moves.length; i++) {
-      if (moves[i].piece === 'k' && HILL.indexOf(moves[i].to) >= 0) return moves[i];
-    }
-    // 2) 一步将死
-    for (var j = 0; j < moves.length; j++) {
-      var m = moves[j];
-      game.move(m);
-      var mate = game.in_checkmate();
-      game.undo();
-      if (mate) return m;
-    }
-    // 3) 简单难度：贪心一层 + 随机扰动
-    if (level === 'easy') {
-      orderMoves(moves);
-      var bestE = -Infinity, bestList = [];
-      for (var e = 0; e < moves.length; e++) {
-        var me = moves[e];
-        game.move(me);
-        var sce = (me.piece === 'k' && HILL.indexOf(me.to) >= 0) ? MATE : -negamax(1, -Infinity, Infinity, 1, Infinity);
-        game.undo();
-        sce += Math.random() * 80 - 40;
-        if (sce > bestE) { bestE = sce; bestList = [me]; }
-        else if (sce === bestE) bestList.push(me);
-      }
-      return bestList[Math.floor(Math.random() * bestList.length)];
-    }
-
-    // 4) 普通/困难：迭代加深 + 时间预算（先浅层探路，再逐层加深直到超时）
-    var budget = level === 'hard' ? 620 : 220;
-    var maxDepth = level === 'hard' ? 4 : 3;
-    var deadline = performance.now() + budget;
-    var finalMove = null;
-
-    for (var d = 1; d <= maxDepth; d++) {
-      aborted = false;
-      nodeCount = 0;
-      var res = rootSearch(d, deadline);
-      if (!res) break;                 // 本层被打断，沿用上一层的结果
-      finalMove = res;
-      if (performance.now() > deadline - budget * 0.3) break;
-    }
-    return finalMove || moves[0];
-  }
-
-  var searchDeadline = 0, aborted = false, nodeCount = 0;
-
-  function rootSearch(depth, deadline) {
-    var moves = game.moves({ verbose: true });
-    if (!moves.length) return null;
-    orderMoves(moves);
-    var best = -Infinity, bestMove = moves[0];
-    for (var i = 0; i < moves.length; i++) {
-      var m = moves[i];
-      game.move(m);
-      var sc;
-      if (m.piece === 'k' && HILL.indexOf(m.to) >= 0) sc = MATE;
-      else sc = -negamax(depth - 1, -Infinity, -best, 1, deadline);
-      game.undo();
-      if (aborted) return null;
-      if (sc > best) { best = sc; bestMove = m; }
-    }
-    return bestMove;
-  }
-
-  function negamax(depth, alpha, beta, ply, deadline) {
-    if (aborted) return 0;
-    nodeCount++;
-    if ((nodeCount & 63) === 0 && performance.now() > deadline) { aborted = true; return 0; }
-    if (depth <= 0) return evalSide();
-    var moves = game.moves({ verbose: true });
-    if (!moves.length) return game.in_check() ? (-MATE + ply) : 0;
-    orderMoves(moves);
-    var best = -Infinity;
-    for (var i = 0; i < moves.length; i++) {
-      var m = moves[i];
-      game.move(m);
-      var sc;
-      if (m.piece === 'k' && HILL.indexOf(m.to) >= 0) sc = MATE - ply;
-      else sc = -negamax(depth - 1, -beta, -alpha, ply + 1, deadline);
-      game.undo();
-      if (aborted) return 0;
-      if (sc > best) best = sc;
-      if (best > alpha) alpha = best;
-      if (alpha >= beta) break;
-    }
-    return best;
-  }
-
-  function evalSide() { return (game.turn() === 'w' ? 1 : -1) * evalWhite(); }
-
-  // 经典简化评估表（白方视角，第 0 行 = 第 8 排）
-  var PST = {
-    p: [0, 0, 0, 0, 0, 0, 0, 0,
-      50, 50, 50, 50, 50, 50, 50, 50,
-      10, 10, 20, 30, 30, 20, 10, 10,
-      5, 5, 10, 25, 25, 10, 5, 5,
-      0, 0, 0, 20, 20, 0, 0, 0,
-      5, -5, -10, 0, 0, -10, -5, 5,
-      5, 10, 10, -20, -20, 10, 10, 5,
-      0, 0, 0, 0, 0, 0, 0, 0],
-    n: [-50, -40, -30, -30, -30, -30, -40, -50,
-      -40, -20, 0, 0, 0, 0, -20, -40,
-      -30, 0, 10, 15, 15, 10, 0, -30,
-      -30, 5, 15, 20, 20, 15, 5, -30,
-      -30, 0, 15, 20, 20, 15, 0, -30,
-      -30, 5, 10, 15, 15, 10, 5, -30,
-      -40, -20, 0, 5, 5, 0, -20, -40,
-      -50, -40, -30, -30, -30, -30, -40, -50],
-    b: [-20, -10, -10, -10, -10, -10, -10, -20,
-      -10, 0, 0, 0, 0, 0, 0, -10,
-      -10, 0, 5, 10, 10, 5, 0, -10,
-      -10, 5, 5, 10, 10, 5, 5, -10,
-      -10, 0, 10, 10, 10, 10, 0, -10,
-      -10, 10, 10, 10, 10, 10, 10, -10,
-      -10, 5, 0, 0, 0, 0, 5, -10,
-      -20, -10, -10, -10, -10, -10, -10, -20],
-    r: [0, 0, 0, 0, 0, 0, 0, 0,
-      5, 10, 10, 10, 10, 10, 10, 5,
-      -5, 0, 0, 0, 0, 0, 0, -5,
-      -5, 0, 0, 0, 0, 0, 0, -5,
-      -5, 0, 0, 0, 0, 0, 0, -5,
-      -5, 0, 0, 0, 0, 0, 0, -5,
-      -5, 0, 0, 0, 0, 0, 0, -5,
-      0, 0, 0, 5, 5, 0, 0, 0],
-    q: [-20, -10, -10, -5, -5, -10, -10, -20,
-      -10, 0, 0, 0, 0, 0, 0, -10,
-      -10, 0, 5, 5, 5, 5, 0, -10,
-      -5, 0, 5, 5, 5, 5, 0, -5,
-      0, 0, 5, 5, 5, 5, 0, -5,
-      -10, 5, 5, 5, 5, 5, 0, -10,
-      -10, 0, 5, 0, 0, 0, 0, -10,
-      -20, -10, -10, -5, -5, -10, -10, -20],
-    k: [-30, -40, -40, -50, -50, -40, -40, -30,
-      -30, -40, -40, -50, -50, -40, -40, -30,
-      -30, -40, -40, -50, -50, -40, -40, -30,
-      -30, -40, -40, -50, -50, -40, -40, -30,
-      -20, -30, -30, -40, -40, -30, -30, -20,
-      -10, -20, -20, -20, -20, -20, -20, -10,
-      20, 20, 0, 0, 0, 0, 20, 20,
-      20, 30, 10, 0, 0, 10, 30, 20]
-  };
-
-  function evalWhite() {
-    var bd = game.board(), s = 0;
-    for (var r = 0; r < 8; r++) {
-      for (var c = 0; c < 8; c++) {
-        var p = bd[r][c];
-        if (!p) continue;
-        var table = PST[p.type];
-        var idx = p.color === 'w' ? (r * 8 + c) : ((7 - r) * 8 + c);
-        var v = VAL[p.type] + table[idx];
-        if (p.type === 'k') {
-          v -= distToHill(r, c) * 9;
-          if (HILL.indexOf(rc2sq(r, c)) >= 0) v += 260;
-        }
-        s += p.color === 'w' ? v : -v;
-      }
-    }
-    return s;
   }
 
   /* ================= 悔棋 / 认输 ================= */
@@ -1520,6 +1372,13 @@ h1 .gold-dot { color: var(--gold); }
   boardEl.addEventListener('pointerup', onUp);
   boardEl.addEventListener('pointercancel', onUp);
 
+  var LEVEL_TEXT = {
+    easy: '<b>陪练</b> · 会看漏棋子、时常走出漏着，适合先熟悉走法和山顶规则',
+    normal: '<b>对手</b> · 算到五步、静态吃子不漏，正常对攻，胜负看中局',
+    hard: '<b>大师</b> · 算到六七步并做吃子延伸，中局会压着打，赢它要算计'
+  };
+  function syncLevelHint() { $('lvHint').innerHTML = LEVEL_TEXT[level] || ''; }
+
   $('segLevel').addEventListener('click', function (e) {
     var b = e.target.closest('button[data-level]');
     if (!b) return;
@@ -1528,8 +1387,10 @@ h1 .gold-dot { color: var(--gold); }
     Array.prototype.forEach.call(this.children, function (x) {
       x.setAttribute('aria-pressed', String(x === b));
     });
+    syncLevelHint();
     sfxTap();
   });
+  syncLevelHint();
 
   function launchPve() { startGame('pve', level); }
   $('cardPve').addEventListener('click', function (e) {
