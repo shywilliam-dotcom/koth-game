@@ -2,400 +2,1577 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>山巅之王 King of the Hill</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>♚</text></svg>">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>小兵战将 · The Crowd and the Crown</title>
+<meta name="description" content="小兵战将（The Crowd and the Crown）——山巅之王玩法的国际象棋变体：标准走法完全不变，王踏入棋盘中央四格即刻加冕获胜。支持人机对战、双人同屏、菲舍尔棋钟与多套皮肤。">
+<meta name="theme-color" content="#0c0a08">
+<meta property="og:title" content="小兵战将 · The Crowd and the Crown">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="小兵战将">
+<meta property="og:description" content="标准国际象棋 + 一条新胜利条件：王踏入中央四格即刻加冕。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23120f0b'/%3E%3Ctext x='50' y='72' font-size='58' text-anchor='middle' fill='%23f2cb84'%3E%E2%99%9A%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://miaoda.feishu.cn" crossorigin>
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@400;500;700&family=Cormorant+Garamond:wght@500;600&display=swap">
 <script>var Chess=function(r){var u="b",s="w",l=-1,_="p",A="n",S="b",m="r",y="q",p="k",t="pnbrqkPNBRQK",e="rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",g=["1-0","0-1","1/2-1/2","*"],C={b:[16,32,17,15],w:[-16,-32,-17,-15]},T={n:[-18,-33,-31,-14,18,33,31,14],b:[-17,-15,17,15],r:[-16,1,16,-1],q:[-17,-16,-15,1,17,16,15,-1],k:[-17,-16,-15,1,17,16,15,-1]},c=[20,0,0,0,0,0,0,24,0,0,0,0,0,0,20,0,0,20,0,0,0,0,0,24,0,0,0,0,0,20,0,0,0,0,20,0,0,0,0,24,0,0,0,0,20,0,0,0,0,0,0,20,0,0,0,24,0,0,0,20,0,0,0,0,0,0,0,0,20,0,0,24,0,0,20,0,0,0,0,0,0,0,0,0,0,20,2,24,2,20,0,0,0,0,0,0,0,0,0,0,0,2,53,56,53,2,0,0,0,0,0,0,24,24,24,24,24,24,56,0,56,24,24,24,24,24,24,0,0,0,0,0,0,2,53,56,53,2,0,0,0,0,0,0,0,0,0,0,0,20,2,24,2,20,0,0,0,0,0,0,0,0,0,0,20,0,0,24,0,0,20,0,0,0,0,0,0,0,0,20,0,0,0,24,0,0,0,20,0,0,0,0,0,0,20,0,0,0,0,24,0,0,0,0,20,0,0,0,0,20,0,0,0,0,0,24,0,0,0,0,0,20,0,0,20,0,0,0,0,0,0,24,0,0,0,0,0,0,20],v=[17,0,0,0,0,0,0,16,0,0,0,0,0,0,15,0,0,17,0,0,0,0,0,16,0,0,0,0,0,15,0,0,0,0,17,0,0,0,0,16,0,0,0,0,15,0,0,0,0,0,0,17,0,0,0,16,0,0,0,15,0,0,0,0,0,0,0,0,17,0,0,16,0,0,15,0,0,0,0,0,0,0,0,0,0,17,0,16,0,15,0,0,0,0,0,0,0,0,0,0,0,0,17,16,15,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,-1,-1,-1,-1,-1,-1,-1,0,0,0,0,0,0,0,-15,-16,-17,0,0,0,0,0,0,0,0,0,0,0,0,-15,0,-16,0,-17,0,0,0,0,0,0,0,0,0,0,-15,0,0,-16,0,0,-17,0,0,0,0,0,0,0,0,-15,0,0,0,-16,0,0,0,-17,0,0,0,0,0,0,-15,0,0,0,0,-16,0,0,0,0,-17,0,0,0,0,-15,0,0,0,0,0,-16,0,0,0,0,0,-17,0,0,-15,0,0,0,0,0,0,-16,0,0,0,0,0,0,-17],h={p:0,n:1,b:2,r:3,q:4,k:5},o={NORMAL:"n",CAPTURE:"c",BIG_PAWN:"b",EP_CAPTURE:"e",PROMOTION:"p",KSIDE_CASTLE:"k",QSIDE_CASTLE:"q"},I={NORMAL:1,CAPTURE:2,BIG_PAWN:4,EP_CAPTURE:8,PROMOTION:16,KSIDE_CASTLE:32,QSIDE_CASTLE:64},P=7,w=6,L=1,R=0,N={a8:0,b8:1,c8:2,d8:3,e8:4,f8:5,g8:6,h8:7,a7:16,b7:17,c7:18,d7:19,e7:20,f7:21,g7:22,h7:23,a6:32,b6:33,c6:34,d6:35,e6:36,f6:37,g6:38,h6:39,a5:48,b5:49,c5:50,d5:51,e5:52,f5:53,g5:54,h5:55,a4:64,b4:65,c4:66,d4:67,e4:68,f4:69,g4:70,h4:71,a3:80,b3:81,c3:82,d3:83,e3:84,f3:85,g3:86,h3:87,a2:96,b2:97,c2:98,d2:99,e2:100,f2:101,g2:102,h2:103,a1:112,b1:113,c1:114,d1:115,e1:116,f1:117,g1:118,h1:119},E={w:[{square:N.a1,flag:I.QSIDE_CASTLE},{square:N.h1,flag:I.KSIDE_CASTLE}],b:[{square:N.a8,flag:I.QSIDE_CASTLE},{square:N.h8,flag:I.KSIDE_CASTLE}]},O=new Array(128),k={w:l,b:l},q=s,D={w:0,b:0},K=l,d=0,b=1,Q=[],U={};function x(r){void 0===r&&(r=!1),O=new Array(128),k={w:l,b:l},q=s,D={w:0,b:0},K=l,d=0,b=1,Q=[],r||(U={}),F(M())}function j(){B(e)}function B(r,e){void 0===e&&(e=!1);var n=r.split(/\s+/),t=n[0],o=0;if(!$(r).valid)return!1;x(e);for(var i=0;i<t.length;i++){var f=t.charAt(i);if("/"===f)o+=8;else if(-1!=="0123456789".indexOf(f))o+=parseInt(f,10);else{var a=f<"a"?s:u;W({type:f.toLowerCase(),color:a},fr(o)),o++}}return q=n[1],-1<n[2].indexOf("K")&&(D.w|=I.KSIDE_CASTLE),-1<n[2].indexOf("Q")&&(D.w|=I.QSIDE_CASTLE),-1<n[2].indexOf("k")&&(D.b|=I.KSIDE_CASTLE),-1<n[2].indexOf("q")&&(D.b|=I.QSIDE_CASTLE),K="-"===n[3]?l:N[n[3]],d=parseInt(n[4],10),b=parseInt(n[5],10),F(M()),!0}function $(r){var e="No errors.",n="FEN string must contain six space-delimited fields.",t="6th field (move number) must be a positive integer.",o="5th field (half move counter) must be a non-negative integer.",i="4th field (en-passant square) is invalid.",f="3rd field (castling availability) is invalid.",a="2nd field (side to move) is invalid.",l="1st field (piece positions) does not contain 8 '/'-delimited rows.",u="1st field (piece positions) is invalid [consecutive numbers].",s="1st field (piece positions) is invalid [invalid piece].",p="1st field (piece positions) is invalid [row too large].",c="Illegal en-passant square",v=r.split(/\s+/);if(6!==v.length)return{valid:!1,error_number:1,error:n};if(isNaN(v[5])||parseInt(v[5],10)<=0)return{valid:!1,error_number:2,error:t};if(isNaN(v[4])||parseInt(v[4],10)<0)return{valid:!1,error_number:3,error:o};if(!/^(-|[abcdefgh][36])$/.test(v[3]))return{valid:!1,error_number:4,error:i};if(!/^(KQ?k?q?|Qk?q?|kq?|q|-)$/.test(v[2]))return{valid:!1,error_number:5,error:f};if(!/^(w|b)$/.test(v[1]))return{valid:!1,error_number:6,error:a};var g=v[0].split("/");if(8!==g.length)return{valid:!1,error_number:7,error:l};for(var h=0;h<g.length;h++){for(var E=0,d=!1,b=0;b<g[h].length;b++)if(isNaN(g[h][b])){if(!/^[prnbqkPRNBQK]$/.test(g[h][b]))return{valid:!1,error_number:9,error:s};E+=1,d=!1}else{if(d)return{valid:!1,error_number:8,error:u};E+=parseInt(g[h][b],10),d=!0}if(8!==E)return{valid:!1,error_number:10,error:p}}return"3"==v[3][1]&&"w"==v[1]||"6"==v[3][1]&&"b"==v[1]?{valid:!1,error_number:11,error:c}:{valid:!0,error_number:0,error:e}}function M(){for(var r=0,e="",n=N.a8;n<=N.h1;n++){if(null==O[n])r++;else{0<r&&(e+=r,r=0);var t=O[n].color,o=O[n].type;e+=t===s?o.toUpperCase():o.toLowerCase()}n+1&136&&(0<r&&(e+=r),n!==N.h1&&(e+="/"),r=0,n+=8)}var i="";D[s]&I.KSIDE_CASTLE&&(i+="K"),D[s]&I.QSIDE_CASTLE&&(i+="Q"),D[u]&I.KSIDE_CASTLE&&(i+="k"),D[u]&I.QSIDE_CASTLE&&(i+="q"),i=i||"-";var f=K===l?"-":fr(K);return[e,q,i,f,d,b].join(" ")}function G(r){for(var e=0;e<r.length;e+=2)"string"==typeof r[e]&&"string"==typeof r[e+1]&&(U[r[e]]=r[e+1]);return U}function F(r){0<Q.length||(r!==e?(U.SetUp="1",U.FEN=r):(delete U.SetUp,delete U.FEN))}function i(r){var e=O[N[r]];return e?{type:e.type,color:e.color}:null}function W(r,e){if(!("type"in r&&"color"in r))return!1;if(-1===t.indexOf(r.type.toLowerCase()))return!1;if(!(e in N))return!1;var n=N[e];return(r.type!=p||k[r.color]==l||k[r.color]==n)&&(O[n]={type:r.type,color:r.color},r.type===p&&(k[r.color]=n),F(M()),!0)}function H(r,e,n,t,o){var i={color:q,from:e,to:n,flags:t,piece:r[e].type};return o&&(i.flags|=I.PROMOTION,i.promotion=o),r[n]?i.captured=r[n].type:t&I.EP_CAPTURE&&(i.captured=_),i}function Z(r){function e(r,e,n,t,o){if(r[n].type!==_||or(t)!==R&&or(t)!==P)e.push(H(r,n,t,o));else for(var i=[y,m,S,A],f=0,a=i.length;f<a;f++)e.push(H(r,n,t,o,i[f]))}var n=[],t=q,o=ar(t),i={b:L,w:w},f=N.a8,a=N.h1,l=!1,u=!(void 0!==r&&"legal"in r)||r.legal;if(void 0!==r&&"square"in r){if(!(r.square in N))return[];f=a=N[r.square],l=!0}for(var s=f;s<=a;s++)if(136&s)s+=7;else{var p=O[s];if(null!=p&&p.color===t)if(p.type===_){var c=s+C[t][0];if(null==O[c]){e(O,n,s,c,I.NORMAL);c=s+C[t][1];i[t]===or(s)&&null==O[c]&&e(O,n,s,c,I.BIG_PAWN)}for(v=2;v<4;v++){136&(c=s+C[t][v])||(null!=O[c]&&O[c].color===o?e(O,n,s,c,I.CAPTURE):c===K&&e(O,n,s,K,I.EP_CAPTURE))}}else for(var v=0,g=T[p.type].length;v<g;v++){var h=T[p.type][v];for(c=s;!(136&(c+=h));){if(null!=O[c]){if(O[c].color===t)break;e(O,n,s,c,I.CAPTURE);break}if(e(O,n,s,c,I.NORMAL),"n"===p.type||"k"===p.type)break}}}if(!l||a===k[t]){if(D[t]&I.KSIDE_CASTLE){var E=(d=k[t])+2;null!=O[d+1]||null!=O[E]||V(o,k[t])||V(o,d+1)||V(o,E)||e(O,n,k[t],E,I.KSIDE_CASTLE)}if(D[t]&I.QSIDE_CASTLE){var d;E=(d=k[t])-2;null!=O[d-1]||null!=O[d-2]||null!=O[d-3]||V(o,k[t])||V(o,d-1)||V(o,E)||e(O,n,k[t],E,I.QSIDE_CASTLE)}}if(!u)return n;var b=[];for(s=0,g=n.length;s<g;s++)er(n[s]),X(t)||b.push(n[s]),nr();return b}function z(r,e){var n="";if(r.flags&I.KSIDE_CASTLE)n="O-O";else if(r.flags&I.QSIDE_CASTLE)n="O-O-O";else{var t=function(r,e){for(var n=Z({legal:!e}),t=r.from,o=r.to,i=r.piece,f=0,a=0,l=0,u=0,s=n.length;u<s;u++){var p=n[u].from,c=n[u].to,v=n[u].piece;i===v&&t!==p&&o===c&&(f++,or(t)===or(p)&&a++,ir(t)===ir(p)&&l++)}if(0<f)return 0<a&&0<l?fr(t):0<l?fr(t).charAt(1):fr(t).charAt(0);return""}(r,e);r.piece!==_&&(n+=r.piece.toUpperCase()+t),r.flags&(I.CAPTURE|I.EP_CAPTURE)&&(r.piece===_&&(n+=fr(r.from)[0]),n+="x"),n+=fr(r.to),r.flags&I.PROMOTION&&(n+="="+r.promotion.toUpperCase())}return er(r),f()&&(a()?n+="#":n+="+"),nr(),n}function J(r){return r.replace(/=/,"").replace(/[+#]?[?!]*$/,"")}function V(r,e){for(var n=N.a8;n<=N.h1;n++)if(136&n)n+=7;else if(null!=O[n]&&O[n].color===r){var t=O[n],o=n-e,i=119+o;if(c[i]&1<<h[t.type]){if(t.type===_){if(0<o){if(t.color===s)return!0}else if(t.color===u)return!0;continue}if("n"===t.type||"k"===t.type)return!0;for(var f=v[i],a=n+f,l=!1;a!==e;){if(null!=O[a]){l=!0;break}a+=f}if(!l)return!0}}return!1}function X(r){return V(ar(r),k[r])}function f(){return X(q)}function a(){return f()&&0===Z().length}function n(){return!f()&&0===Z().length}function Y(){for(var r={},e=[],n=0,t=0,o=N.a8;o<=N.h1;o++)if(t=(t+1)%2,136&o)o+=7;else{var i=O[o];i&&(r[i.type]=i.type in r?r[i.type]+1:1,i.type===S&&e.push(t),n++)}if(2===n)return!0;if(3===n&&(1===r[S]||1===r[A]))return!0;if(n===r[S]+2){var f=0,a=e.length;for(o=0;o<a;o++)f+=e[o];if(0===f||f===a)return!0}return!1}function rr(){for(var r=[],e={},n=!1;;){var t=nr();if(!t)break;r.push(t)}for(;;){var o=M().split(" ").slice(0,4).join(" ");if(e[o]=o in e?e[o]+1:1,3<=e[o]&&(n=!0),!r.length)break;er(r.pop())}return n}function er(r){var e,n=q,t=ar(n);if(e=r,Q.push({move:e,kings:{b:k.b,w:k.w},turn:q,castling:{b:D.b,w:D.w},ep_square:K,half_moves:d,move_number:b}),O[r.to]=O[r.from],O[r.from]=null,r.flags&I.EP_CAPTURE&&(q===u?O[r.to-16]=null:O[r.to+16]=null),r.flags&I.PROMOTION&&(O[r.to]={type:r.promotion,color:n}),O[r.to].type===p){if(k[O[r.to].color]=r.to,r.flags&I.KSIDE_CASTLE){var o=r.to-1,i=r.to+1;O[o]=O[i],O[i]=null}else if(r.flags&I.QSIDE_CASTLE){o=r.to+1,i=r.to-2;O[o]=O[i],O[i]=null}D[n]=""}if(D[n])for(var f=0,a=E[n].length;f<a;f++)if(r.from===E[n][f].square&&D[n]&E[n][f].flag){D[n]^=E[n][f].flag;break}if(D[t])for(f=0,a=E[t].length;f<a;f++)if(r.to===E[t][f].square&&D[t]&E[t][f].flag){D[t]^=E[t][f].flag;break}K=r.flags&I.BIG_PAWN?"b"===q?r.to-16:r.to+16:l,r.piece===_||r.flags&(I.CAPTURE|I.EP_CAPTURE)?d=0:d++,q===u&&b++,q=ar(q)}function nr(){var r=Q.pop();if(null==r)return null;var e=r.move;k=r.kings,q=r.turn,D=r.castling,K=r.ep_square,d=r.half_moves,b=r.move_number;var n,t,o=q,i=ar(q);if(O[e.from]=O[e.to],O[e.from].type=e.piece,O[e.to]=null,e.flags&I.CAPTURE)O[e.to]={type:e.captured,color:i};else if(e.flags&I.EP_CAPTURE){var f;f=o===u?e.to-16:e.to+16,O[f]={type:_,color:i}}e.flags&(I.KSIDE_CASTLE|I.QSIDE_CASTLE)&&(e.flags&I.KSIDE_CASTLE?(n=e.to+1,t=e.to-1):e.flags&I.QSIDE_CASTLE&&(n=e.to-2,t=e.to+1),O[n]=O[t],O[t]=null);return e}function tr(r,e){var n=J(r);if(e){var t=n.match(/([pnbrqkPNBRQK])?([a-h][1-8])x?-?([a-h][1-8])([qrbnQRBN])?/);if(t)var o=t[1],i=t[2],f=t[3],a=t[4]}for(var l=Z(),u=0,s=l.length;u<s;u++){if(n===J(z(l[u]))||e&&n===J(z(l[u],!0)))return l[u];if(t&&(!o||o.toLowerCase()==l[u].piece)&&N[i]==l[u].from&&N[f]==l[u].to&&(!a||a.toLowerCase()==l[u].promotion))return l[u]}return null}function or(r){return r>>4}function ir(r){return 15&r}function fr(r){var e=ir(r),n=or(r);return"abcdefgh".substring(e,e+1)+"87654321".substring(n,n+1)}function ar(r){return r===s?u:s}function lr(r){var e=function r(e){var n=e instanceof Array?[]:{};for(var t in e)n[t]="object"==typeof t?r(e[t]):e[t];return n}(r);e.san=z(e,!1),e.to=fr(e.to),e.from=fr(e.from);var n="";for(var t in I)I[t]&e.flags&&(n+=o[t]);return e.flags=n,e}function ur(r){return r.replace(/^\s+|\s+$/g,"")}return B(void 0===r?e:r),{WHITE:s,BLACK:u,PAWN:_,KNIGHT:A,BISHOP:S,ROOK:m,QUEEN:y,KING:p,SQUARES:function(){for(var r=[],e=N.a8;e<=N.h1;e++)136&e?e+=7:r.push(fr(e));return r}(),FLAGS:o,load:function(r){return B(r)},reset:function(){return j()},moves:function(r){for(var e=Z(r),n=[],t=0,o=e.length;t<o;t++)void 0!==r&&"verbose"in r&&r.verbose?n.push(lr(e[t])):n.push(z(e[t],!1));return n},in_check:function(){return f()},in_checkmate:function(){return a()},in_stalemate:function(){return n()},in_draw:function(){return 100<=d||n()||Y()||rr()},insufficient_material:function(){return Y()},in_threefold_repetition:function(){return rr()},game_over:function(){return 100<=d||a()||n()||Y()||rr()},validate_fen:function(r){return $(r)},fen:function(){return M()},board:function(){for(var r=[],e=[],n=N.a8;n<=N.h1;n++)null==O[n]?e.push(null):e.push({type:O[n].type,color:O[n].color}),n+1&136&&(r.push(e),e=[],n+=8);return r},pgn:function(r){var e="object"==typeof r&&"string"==typeof r.newline_char?r.newline_char:"\n",n="object"==typeof r&&"number"==typeof r.max_width?r.max_width:0,t=[],o=!1;for(var i in U)t.push("["+i+' "'+U[i]+'"]'+e),o=!0;o&&Q.length&&t.push(e);for(var f=[];0<Q.length;)f.push(nr());for(var a=[],l="";0<f.length;){var u=f.pop();Q.length||"b"!==u.color?"w"===u.color&&(l.length&&a.push(l),l=b+"."):l=b+". ...",l=l+" "+z(u,!1),er(u)}if(l.length&&a.push(l),void 0!==U.Result&&a.push(U.Result),0===n)return t.join("")+a.join(" ");var s=0;for(i=0;i<a.length;i++)s+a[i].length>n&&0!==i?(" "===t[t.length-1]&&t.pop(),t.push(e),s=0):0!==i&&(t.push(" "),s++),t.push(a[i]),s+=a[i].length;return t.join("")},load_pgn:function(r,e){var n=void 0!==e&&"sloppy"in e&&e.sloppy;function l(r){return r.replace(/\\/g,"\\")}var t="object"==typeof e&&"string"==typeof e.newline_char?e.newline_char:"\r?\n",o=new RegExp("^(\\[((?:"+l(t)+")|.)*\\])(?:"+l(t)+"){2}"),i=o.test(r)?o.exec(r)[1]:"";j();var f=function(r,e){for(var n="object"==typeof e&&"string"==typeof e.newline_char?e.newline_char:"\r?\n",t={},o=r.split(new RegExp(l(n))),i="",f="",a=0;a<o.length;a++)i=o[a].replace(/^\[([A-Z][A-Za-z]*)\s.*\]$/,"$1"),f=o[a].replace(/^\[[A-Za-z]+\s"(.*)"\]$/,"$1"),0<ur(i).length&&(t[i]=f);return t}(i,e);for(var a in f)G([a,f[a]]);if("1"===f.SetUp&&!("FEN"in f&&B(f.FEN,!0)))return!1;var u=r.replace(i,"").replace(new RegExp(l(t),"g")," ");u=u.replace(/(\{[^}]+\})+?/g,"");for(var s=/(\([^\(\)]+\))+?/g;s.test(u);)u=u.replace(s,"");var p=ur(u=(u=(u=u.replace(/\d+\.(\.\.)?/g,"")).replace(/\.\.\./g,"")).replace(/\$\d+/g,"")).split(new RegExp(/\s+/));p=p.join(",").replace(/,,+/g,",").split(",");for(var c="",v=0;v<p.length-1;v++){if(null==(c=tr(p[v],n)))return!1;er(c)}if(c=p[p.length-1],-1<g.indexOf(c))!function(r){for(var e in r)return 1}(U)||void 0!==U.Result||G(["Result",c]);else{if(null==(c=tr(c,n)))return!1;er(c)}return!0},header:function(){return G(arguments)},ascii:function(){return function(){for(var r="   +------------------------+\n",e=N.a8;e<=N.h1;e++){if(0===ir(e)&&(r+=" "+"87654321"[or(e)]+" |"),null==O[e])r+=" . ";else{var n=O[e].type;r+=" "+(O[e].color===s?n.toUpperCase():n.toLowerCase())+" "}e+1&136&&(r+="|\n",e+=8)}return r+="   +------------------------+\n",r+="     a  b  c  d  e  f  g  h\n"}()},turn:function(){return q},move:function(r,e){var n=void 0!==e&&"sloppy"in e&&e.sloppy,t=null;if("string"==typeof r)t=tr(r,n);else if("object"==typeof r)for(var o=Z(),i=0,f=o.length;i<f;i++)if(!(r.from!==fr(o[i].from)||r.to!==fr(o[i].to)||"promotion"in o[i]&&r.promotion!==o[i].promotion)){t=o[i];break}if(!t)return null;var a=lr(t);return er(t),a},undo:function(){var r=nr();return r?lr(r):null},clear:function(){return x()},put:function(r,e){return W(r,e)},get:function(r){return i(r)},remove:function(r){return n=i(e=r),O[N[e]]=null,n&&n.type===p&&(k[n.color]=l),F(M()),n;var e,n},perft:function(r){return function r(e){for(var n=Z({legal:!1}),t=0,o=q,i=0,f=n.length;i<f;i++)er(n[i]),X(o)||(0<e-1?t+=r(e-1):t++),nr();return t}(r)},square_color:function(r){if(r in N){var e=N[r];return(or(e)+ir(e))%2==0?"light":"dark"}return null},history:function(r){for(var e=[],n=[],t=(void 0!==r&&"verbose"in r&&r.verbose);0<Q.length;)e.push(nr());for(;0<e.length;){var o=e.pop();t?n.push(lr(o)):n.push(z(o)),er(o)}return n}}};"undefined"!=typeof exports&&(exports.Chess=Chess),"undefined"!=typeof define&&define(function(){return Chess});</script>
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
+<style>/* ===== 小兵战将 · The Crowd and the Crown ===== */
+*, *::before, *::after { box-sizing: border-box; }
+
+:root {
+  --bg: #0c0a08;
+  --bg-2: #14110d;
+  --panel: #17130f;
+  --panel-2: #1e1913;
+  --line: #2b241c;
+  --line-2: #3a3126;
+  --ink: #efe7da;
+  --ink-dim: #a99d8b;
+  --ink-mute: #6f665a;
+  --gold: #d6a850;
+  --gold-2: #f2cb84;
+  --gold-dim: rgba(214, 168, 80, .35);
+  --win: #7fbf88;
+  --lose: #cf6f5f;
+  --board-light: #ecd8b6;
+  --board-dark: #a3764f;
+  --board-edge: #3b2c1e;
+  --shade: rgba(0, 0, 0, .55);
+  --serif: "Noto Serif SC", "Songti SC", Georgia, serif;
+  --sans: "Noto Sans SC", -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  --num: "Cormorant Garamond", "Noto Serif SC", Georgia, serif;
+  --bs: min(calc(96vw - 37px), 66dvh, 560px);
+  --bf: calc(var(--bs) + 37px);
+  --r: 14px;
+}
+
+body[data-skin="jade"] { --board-light: #e6ebdf; --board-dark: #6e8b76; --board-edge: #2f3a32; }
+body[data-skin="night"] { --board-light: #cdc7bb; --board-dark: #54504a; --board-edge: #232020; }
+
+html, body { margin: 0; padding: 0; }
 body {
-  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
-  background: #1a1a2e; color: #eee; min-height: 100vh;
-  display: flex; flex-direction: column; align-items: center; padding: 16px;
+  min-height: 100dvh;
+  color: var(--ink);
+  font-family: var(--sans);
+  background:
+    radial-gradient(900px 520px at 50% -12%, #1d1811 0%, rgba(12, 10, 8, 0) 62%),
+    radial-gradient(1200px 700px at 50% 110%, #14100c 0%, rgba(12, 10, 8, 0) 60%),
+    #0c0a08;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
-h1 { font-size: 22px; margin-bottom: 8px; color: #e8c170; letter-spacing: 2px; }
-.subtitle { font-size: 12px; color: #888; margin-bottom: 16px; }
-.game-wrap { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; align-items: flex-start; }
-.sidebar { width: min(92vw, 320px); display: flex; flex-direction: column; gap: 12px; }
+body::after {
+  content: "";
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  opacity: .028;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.view { display: none; position: relative; z-index: 1; }
+.view.active { display: block; }
+
+/* ---------- 通用控件 ---------- */
+.btn {
+  appearance: none; border: 1px solid var(--line-2); background: var(--panel-2);
+  color: var(--ink); font-family: inherit; font-size: 14px; font-weight: 500;
+  padding: 11px 16px; border-radius: 10px; cursor: pointer; min-height: 44px;
+  transition: background .16s, border-color .16s, transform .16s, color .16s;
+}
+.btn:hover { background: #262019; border-color: #4a3f2f; }
+.btn:active { transform: translateY(1px); }
+.btn.gold { background: linear-gradient(180deg, #e3b962, #c99a41); color: #1a1408; border-color: #b98c38; font-weight: 700; }
+.btn.gold:hover { background: linear-gradient(180deg, #efc672, #d5a448); }
+.btn.ghost { background: transparent; }
+.btn:disabled { opacity: .4; cursor: not-allowed; }
+
+.icon-btn {
+  appearance: none; background: transparent; border: 1px solid var(--line);
+  color: var(--ink-dim); width: 40px; height: 40px; border-radius: 10px;
+  display: inline-flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: .16s;
+}
+.icon-btn:hover { color: var(--gold); border-color: var(--gold-dim); }
+
+.svg-ico { width: 18px; height: 18px; display: block; }
+
+/* ---------- 大厅 ---------- */
+.home { max-width: 1000px; margin: 0 auto; padding: clamp(24px, 5vw, 56px) 20px 72px; }
+
+.hero { text-align: center; margin-bottom: clamp(26px, 4vw, 44px); }
+.crest {
+  width: 74px; height: 74px; margin: 0 auto 18px;
+  display: grid; place-items: center;
+  border-radius: 20px;
+  background: radial-gradient(circle at 50% 30%, #251e12, #16120c);
+  border: 1px solid rgba(214, 168, 80, .28);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .6), 0 12px 30px -14px rgba(214, 168, 80, .5);
+}
+.crest svg { width: 38px; height: 38px; color: var(--gold-2); }
+
+h1 {
+  font-family: var(--serif); font-weight: 900;
+  font-size: clamp(30px, 6vw, 46px); letter-spacing: .1em;
+  margin: 0 0 12px; color: var(--ink);
+}
+h1 .gold-dot { color: var(--gold); }
+.en-title {
+  font-family: var(--num); font-size: clamp(12px, 2.4vw, 15px);
+  letter-spacing: .22em; text-transform: uppercase; color: var(--ink-mute);
+  margin: 0 0 14px;
+}
+.variant-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 12px; letter-spacing: .12em; color: var(--gold);
+  border: 1px solid var(--gold-dim); border-radius: 999px;
+  padding: 5px 14px; background: rgba(214, 168, 80, .07);
+}
+.lede {
+  max-width: 560px; margin: 20px auto 0;
+  font-size: 15px; line-height: 1.9; color: var(--ink-dim);
+}
+.lede b { color: var(--gold-2); font-weight: 600; }
+
+.modes { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 22px; }
+@media (max-width: 620px) { .modes { grid-template-columns: 1fr; } }
+
+.mode-card {
+  position: relative; text-align: left; cursor: pointer;
+  background: linear-gradient(160deg, var(--panel-2), #171310);
+  border: 1px solid var(--line); border-radius: var(--r);
+  padding: 20px; color: var(--ink); font-family: inherit;
+  transition: border-color .2s, transform .2s, box-shadow .2s;
+  display: flex; flex-direction: column; gap: 10px; min-height: 148px;
+}
+.mode-card:hover { border-color: var(--gold-dim); transform: translateY(-2px); box-shadow: 0 18px 40px -24px rgba(214, 168, 80, .55); }
+.mc-top { display: flex; align-items: center; gap: 10px; }
+.mc-ico { width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center;
+  background: rgba(214, 168, 80, .1); border: 1px solid var(--gold-dim); color: var(--gold-2); flex: none; }
+.mc-ico svg { width: 18px; height: 18px; }
+.mc-title { font-family: var(--serif); font-size: 17px; font-weight: 700; letter-spacing: .04em; }
+.mc-desc { font-size: 12.5px; color: var(--ink-mute); line-height: 1.6; }
+.seg { display: flex; gap: 6px; margin-top: auto; }
+.seg button {
+  flex: 1; appearance: none; font-family: inherit; font-size: 12.5px;
+  padding: 9px 6px; min-height: 40px; border-radius: 8px; cursor: pointer;
+  background: #120f0b; color: var(--ink-mute); border: 1px solid var(--line);
+  transition: .16s;
+}
+.seg button:hover { color: var(--ink); }
+.seg button[aria-pressed="true"] { background: rgba(214, 168, 80, .14); color: var(--gold-2); border-color: var(--gold-dim); font-weight: 600; }
+
+
+.mc-link { margin-left: auto; appearance: none; background: none; border: 0; cursor: pointer;
+  font-family: inherit; font-size: 11.5px; color: var(--ink-mute); padding: 3px 0;
+  border-bottom: 1px solid transparent; transition: .16s; }
+.mc-link:hover { color: var(--gold); border-color: var(--gold-dim); }
+.cta { appearance: none; font-family: inherit; cursor: pointer; display: flex; align-items: center;
+  justify-content: center; gap: 9px; min-height: 44px; padding: 11px 16px; border-radius: 9px;
+  border: 1px solid var(--gold-dim); font-size: 13px; font-weight: 700; letter-spacing: .08em;
+  color: var(--gold-2); background: linear-gradient(180deg, rgba(214, 168, 80, .2), rgba(214, 168, 80, .07));
+  transition: .18s; }
+.cta:hover { color: #fff3dd; border-color: var(--gold);
+  background: linear-gradient(180deg, rgba(214, 168, 80, .34), rgba(214, 168, 80, .14));
+  box-shadow: 0 12px 28px -16px rgba(214, 168, 80, .7); }
+.cta svg { color: var(--gold); }
+
+.strip {
+  display: grid; gap: 1px; background: var(--line);
+  border: 1px solid var(--line); border-radius: var(--r); overflow: hidden;
+  margin-bottom: 22px;
+}
+.strip { grid-template-columns: repeat(4, 1fr); }
+.strip div { background: #12100c; padding: 16px 8px; text-align: center; display: flex; flex-direction: column; justify-content: center; gap: 5px; }
+.strip .k { font-family: var(--num); font-size: clamp(22px, 4vw, 30px); color: var(--gold-2); line-height: 1.1; font-weight: 600; }
+.strip .l { font-size: 11.5px; color: var(--ink-mute); letter-spacing: .06em; white-space: nowrap; }
+
+.block { margin-bottom: 22px; }
+.block-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 12px; }
+.block-head h2 { font-family: var(--serif); font-size: 15px; margin: 0; font-weight: 700; letter-spacing: .08em; }
+.block-head .note { font-size: 11.5px; color: var(--ink-mute); }
+
+.skins { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.skin-chip {
+  appearance: none; font-family: inherit; cursor: pointer; text-align: left;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+  padding: 10px; color: var(--ink-dim); transition: .18s; position: relative;
+}
+.skin-chip:hover { border-color: var(--line-2); }
+.skin-chip[data-active="true"] { border-color: var(--gold); background: rgba(214, 168, 80, .07); color: var(--ink); }
+.skin-chip[data-locked="true"] { opacity: .55; }
+.skin-pv { display: grid; grid-template-columns: repeat(4, 1fr); aspect-ratio: 2/1; border-radius: 7px; overflow: hidden; margin-bottom: 9px; }
+.skin-name { font-size: 12.5px; font-weight: 600; display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+.skin-lock { font-size: 10.5px; color: var(--ink-mute); display: block; margin-top: 3px; letter-spacing: .02em; }
+
+.achievements { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+@media (max-width: 620px) { .achievements { grid-template-columns: repeat(2, 1fr); } }
+.ach {
+  display: flex; gap: 11px; align-items: center;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+  padding: 12px 13px;
+}
+.ach[data-on="true"] { border-color: rgba(214, 168, 80, .38); background: linear-gradient(160deg, rgba(214, 168, 80, .09), transparent); }
+.ach-ico { width: 30px; height: 30px; flex: none; display: grid; place-items: center; border-radius: 8px;
+  background: #0e0c09; border: 1px solid var(--line); color: var(--ink-mute); }
+.ach-ico svg { width: 15px; height: 15px; }
+.ach[data-on="true"] .ach-ico { color: var(--gold-2); border-color: var(--gold-dim); }
+.ach-t { display: block; font-size: 12.5px; font-weight: 600; }
+.ach-d { display: block; font-size: 10.5px; color: var(--ink-mute); margin-top: 3px; line-height: 1.5; }
+
+.home-foot { margin-top: 34px; padding-top: 18px; border-top: 1px solid var(--line);
+  display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; justify-content: space-between;
+  font-size: 11.5px; color: var(--ink-mute); line-height: 1.7; }
+.home-foot a { color: var(--ink-mute); text-decoration: none; border-bottom: 1px solid var(--line-2); }
+.home-foot a:hover { color: var(--gold); border-color: var(--gold-dim); }
+
+/* ---------- 对局 ---------- */
+.game { padding: clamp(10px, 2vw, 24px) clamp(10px, 2vw, 24px) 28px; max-width: 1120px; margin: 0 auto; }
+.game-wrap { display: grid; grid-template-columns: auto 320px; gap: clamp(16px, 2.4vw, 32px); justify-content: center; align-items: start; }
+@media (max-width: 980px) { .game-wrap { grid-template-columns: 1fr; justify-items: center; } .side { width: var(--bf); } }
+
+.board-col { display: flex; flex-direction: column; gap: 10px; width: var(--bf); }
+
+.prow { display: flex; align-items: center; gap: 10px; height: 54px; }
+.avatar { width: 38px; height: 38px; border-radius: 10px; flex: none; display: grid; place-items: center;
+  background: #0f0d0a; border: 1px solid var(--line); color: var(--ink-dim); overflow: hidden; }
+.avatar svg { width: 18px; height: 18px; }
+.avatar.you { border-color: var(--gold-dim); color: var(--gold-2); }
+.pinfo { min-width: 0; flex: 1; }
+.pname { font-size: 13.5px; font-weight: 600; display: flex; align-items: center; gap: 7px; white-space: nowrap; }
+.pname .dot-turn { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 8px var(--gold); }
+.pname .dot-turn.off { background: var(--line-2); box-shadow: none; }
+.captured { display: flex; align-items: center; gap: 1px; margin-top: 3px; min-height: 15px; }
+.captured img { width: 16px; height: 16px; opacity: .8; }
+.captured .adv { font-family: var(--num); font-size: 13px; color: var(--gold-2); margin-left: 4px; }
+.thinking { font-size: 11px; color: var(--gold); letter-spacing: .06em; display: none; }
+.thinking.on { display: inline-flex; align-items: center; gap: 5px; }
+.spin { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid var(--gold-dim); border-top-color: var(--gold); animation: sp 0.7s linear infinite; }
+@keyframes sp { to { transform: rotate(360deg); } }
+
+.clock {
+  font-family: var(--num); font-variant-numeric: tabular-nums;
+  font-size: 26px; font-weight: 600; letter-spacing: .02em;
+  padding: 4px 13px; border-radius: 9px; min-width: 92px; text-align: center;
+  background: #0d0b09; border: 1px solid var(--line); color: var(--ink-dim);
+  transition: color .2s, border-color .2s, background .2s;
+}
+.clock.active { color: var(--ink); background: #17130d; border-color: var(--gold-dim); box-shadow: 0 0 0 1px rgba(214, 168, 80, .12) inset; }
+.clock.low { color: #ff8f7a; border-color: rgba(207, 111, 95, .5); animation: pulse 1s ease-in-out infinite; }
+@keyframes pulse { 50% { background: rgba(207, 111, 95, .12); } }
+.clock .inc { display: block; font-size: 9px; letter-spacing: .1em; color: var(--ink-mute); font-family: var(--sans); margin-top: 1px; }
+
+/* 棋盘 */
+.board-frame {
+  padding: 11px 12px 12px 11px; box-sizing: content-box; border-radius: 12px;
+  background: linear-gradient(155deg, #33261a, #1d1712);
+  box-shadow: 0 24px 60px -26px #000, 0 0 0 1px rgba(255, 255, 255, .05) inset;
+  align-self: center;
+}
+.board-holder { display: grid; grid-template-columns: 14px auto; grid-template-rows: auto 14px; }
+.gut-r { grid-column: 1; grid-row: 1; display: grid; grid-template-rows: repeat(8, 1fr); }
+.gut-f { grid-column: 2; grid-row: 2; display: grid; grid-template-columns: repeat(8, 1fr); }
+.gut-r span, .gut-f span {
+  display: grid; place-items: center; font-size: 10.5px; font-weight: 600;
+  color: #b79562; letter-spacing: .05em; font-family: var(--num);
+}
 .board {
-  display: grid; grid-template-columns: repeat(8, 1fr); grid-template-rows: repeat(8, 1fr);
-  width: min(92vw, 512px); aspect-ratio: 1;
-  border: 3px solid #5a4a2a; border-radius: 4px; overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  position: relative; grid-column: 2; grid-row: 1;
+  width: var(--bs); height: var(--bs);
+  border-radius: 3px; overflow: hidden; touch-action: none;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .55), 0 2px 10px rgba(0, 0, 0, .35) inset;
 }
-.square {
-  position: relative; display: flex; align-items: center; justify-content: center;
-  font-size: clamp(24px, 9vw, 44px); cursor: pointer; user-select: none; line-height: 1;
+.squares { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(8, 1fr); grid-template-rows: repeat(8, 1fr); }
+.sq { position: relative; overflow: hidden; }
+.sq.light { background: var(--board-light); }
+.sq.dark { background: var(--board-dark); }
+
+.sq.last::before { content: ""; position: absolute; inset: 0; background: rgba(214, 168, 80, .34); mix-blend-mode: multiply; pointer-events: none; }
+.sq.sel::before { content: ""; position: absolute; inset: 0; background: rgba(140, 110, 40, .45); pointer-events: none; }
+.sq.check::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(circle at 50% 50%, rgba(190, 55, 45, .85) 0%, rgba(190, 55, 45, .45) 42%, transparent 72%);
+  animation: chk 1.4s ease-in-out infinite;
 }
-.square.light { background: #f0d9b5; }
-.square.dark { background: #b58863; }
-.square.hill { box-shadow: inset 0 0 0 3px #e8c170; }
-.square.hill::after {
-  content: ''; position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(circle, rgba(232,193,112,0.15) 0%, transparent 70%);
+@keyframes chk { 50% { opacity: .55; } }
+.sq .hint-dot {
+  position: absolute; left: 50%; top: 50%; width: 27%; height: 27%; transform: translate(-50%, -50%);
+  border-radius: 50%; background: rgba(24, 46, 26, .55);
+  box-shadow: 0 0 0 1.5px rgba(255, 246, 228, .45); pointer-events: none;
 }
-.square.selected::before { content: ''; position: absolute; inset: 0; background: rgba(20,85,30,0.5); }
-.square.last-move::before { content: ''; position: absolute; inset: 0; background: rgba(205,210,106,0.4); }
-.square.check::before {
-  content: ''; position: absolute; inset: 0;
-  background: radial-gradient(circle, rgba(255,0,0,0.5) 0%, transparent 70%);
+.sq .hint-ring {
+  position: absolute; inset: 5%; border-radius: 50%; pointer-events: none;
+  border: 3.5px solid rgba(24, 46, 26, .5);
+  box-shadow: 0 0 0 1.5px rgba(255, 246, 228, .32);
 }
-.dot { position: absolute; width: 28%; height: 28%; border-radius: 50%; background: rgba(20,85,30,0.35); pointer-events: none; }
-.capture-ring { position: absolute; inset: 4%; border: 4px solid rgba(20,85,30,0.4); border-radius: 50%; pointer-events: none; }
-.piece { z-index: 1; }
-.piece.w { color: #fff; text-shadow: 0 0 2px #000, 0 0 4px #000, 0 2px 3px rgba(0,0,0,0.9); font-weight: bold; }
-.piece.b { color: #1a1a1a; text-shadow: 0 0 2px rgba(255,255,255,0.5); }
-.coord { position: absolute; font-size: 10px; font-weight: bold; pointer-events: none; z-index: 2; }
-.coord.file { bottom: 2px; right: 4px; }
-.coord.rank { top: 2px; left: 4px; }
-.square.light .coord { color: #b58863; }
-.square.dark .coord { color: #f0d9b5; }
-.panel { background: #16213e; border-radius: 8px; padding: 14px; border: 1px solid #2a3a5e; }
-.panel h2 { font-size: 14px; color: #e8c170; margin-bottom: 8px; border-bottom: 1px solid #2a3a5e; padding-bottom: 6px; }
-.status-line { font-size: 14px; margin: 4px 0; display: flex; justify-content: space-between; }
-.status-line .val { color: #e8c170; font-weight: bold; }
-.btn { display: block; width: 100%; padding: 10px; margin: 6px 0; border: none; border-radius: 6px; background: #e8c170; color: #1a1a2e; font-size: 14px; font-weight: bold; cursor: pointer; }
-.btn:hover { opacity: 0.85; }
-.btn:disabled { opacity: 0.4; cursor: not-allowed; }
-.btn.secondary { background: #3a5a8e; color: #fff; }
-.result-banner { text-align: center; font-size: 18px; font-weight: bold; padding: 12px; border-radius: 6px; margin: 8px 0; display: none; }
-.result-banner.win-w { background: #2d5a2d; color: #aaffaa; display: block; }
-.result-banner.win-b { background: #5a2d2d; color: #ffaaaa; display: block; }
-.result-banner.draw { background: #4a4a2d; color: #ffffaa; display: block; }
-.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; font-size: 13px; }
-.stats-grid .label { color: #888; }
-.stats-grid .num { color: #e8c170; font-weight: bold; text-align: right; }
-.gamelog { max-height: 200px; overflow-y: auto; font-size: 12px; font-family: monospace; background: #0f1629; padding: 8px; border-radius: 4px; line-height: 1.6; }
-.game-entry { margin-bottom: 4px; padding-bottom: 4px; border-bottom: 1px solid #1a2540; }
-.progress-bar { height: 6px; background: #0f1629; border-radius: 3px; overflow: hidden; margin-top: 6px; }
-.progress-bar .fill { height: 100%; background: #e8c170; width: 0%; transition: width 0.2s; }
-.rules-hint { font-size: 11px; color: #777; line-height: 1.5; }
-.rules-hint b { color: #e8c170; }
+.sq .flash { position: absolute; inset: 0; background: rgba(255, 236, 190, .5); pointer-events: none; animation: fl .42s ease-out forwards; }
+@keyframes fl { from { opacity: 1; } to { opacity: 0; } }
+
+/* 山顶 */
+.hill {
+  position: absolute; left: 37.5%; top: 37.5%; width: 25%; height: 25%; pointer-events: none;
+  display: grid; place-items: center; border-radius: 5px; overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(255, 238, 199, .55), rgba(214, 168, 80, .2) 55%, rgba(160, 116, 46, .14) 100%),
+    linear-gradient(180deg, rgba(255, 245, 214, .22), rgba(150, 105, 40, .16));
+  box-shadow:
+    inset 0 0 0 1.5px rgba(240, 199, 128, .75),
+    inset 0 6px 14px rgba(255, 236, 190, .28),
+    inset 0 -6px 14px rgba(60, 38, 8, .26),
+    0 0 0 1px rgba(70, 46, 14, .45),
+    0 5px 13px rgba(0, 0, 0, .38);
+  transition: box-shadow .4s, background .4s;
+}
+.hill svg.crown {
+  width: 52%; height: auto; color: #fff0cd; opacity: .34;
+  filter: drop-shadow(0 1px 2px rgba(90, 58, 12, .45));
+}
+.hill .br { position: absolute; width: 8px; height: 8px; border: 1.5px solid rgba(255, 240, 205, .75); }
+.hill .br.tl { left: 5px; top: 5px; border-right: 0; border-bottom: 0; }
+.hill .br.tr { right: 5px; top: 5px; border-left: 0; border-bottom: 0; }
+.hill .br.bl { left: 5px; bottom: 5px; border-right: 0; border-top: 0; }
+.hill .br.br2 { right: 5px; bottom: 5px; border-left: 0; border-top: 0; }
+.hill.hot {
+  background:
+    radial-gradient(circle at 50% 42%, rgba(255, 246, 214, .72), rgba(240, 196, 120, .32) 58%, rgba(190, 140, 55, .2) 100%),
+    linear-gradient(180deg, rgba(255, 248, 224, .3), rgba(170, 120, 45, .22));
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 226, 168, .95),
+    inset 0 6px 16px rgba(255, 240, 200, .4),
+    inset 0 -6px 14px rgba(70, 44, 10, .25),
+    0 0 0 1px rgba(80, 52, 16, .45),
+    0 0 24px rgba(240, 190, 110, .5),
+    0 5px 13px rgba(0, 0, 0, .38);
+  animation: hot 1.8s ease-in-out infinite;
+}
+@keyframes hot {
+  50% {
+    box-shadow:
+      inset 0 0 0 2px rgba(255, 233, 186, .6),
+      inset 0 6px 16px rgba(255, 240, 200, .25),
+      inset 0 -6px 14px rgba(70, 44, 10, .25),
+      0 0 0 1px rgba(80, 52, 16, .45),
+      0 0 38px rgba(240, 190, 110, .72),
+      0 5px 13px rgba(0, 0, 0, .38);
+  }
+}
+
+.pieces { position: absolute; inset: 0; pointer-events: none; }
+.pc {
+  position: absolute; left: 0; top: 0; width: 12.5%; height: 12.5%;
+  will-change: transform; z-index: 2;
+  transition: transform .19s cubic-bezier(.22, .8, .26, 1);
+}
+.pc img { width: 100%; height: 100%; object-fit: contain; display: block; padding: 3%;
+  filter: drop-shadow(0 3px 3px rgba(0, 0, 0, .38)); }
+.pc.dragging { transition: none !important; z-index: 9 !important; }
+.pc.dragging img { filter: drop-shadow(0 12px 14px rgba(0, 0, 0, .5)); transform: scale(1.06); }
+
+/* 侧栏 */
+.side { display: flex; flex-direction: column; gap: 12px; }
+.tag-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.mode-tag { font-size: 11.5px; letter-spacing: .08em; color: var(--gold); border: 1px solid var(--gold-dim);
+  border-radius: 999px; padding: 4px 11px; background: rgba(214, 168, 80, .06); white-space: nowrap; }
+
+.moves-panel { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; flex: 0 0 auto; height: clamp(196px, 29dvh, 300px); }
+.moves-head { display: flex; justify-content: space-between; align-items: center; padding: 9px 13px;
+  border-bottom: 1px solid var(--line); font-size: 11px; letter-spacing: .1em; color: var(--ink-mute); }
+.moves { margin: 0; padding: 6px 0; list-style: none; overflow-y: auto; max-height: none; flex: 1; scrollbar-width: thin; }
+.moves li { display: grid; grid-template-columns: 34px 1fr 1fr; font-size: 13px; line-height: 1.9; padding: 0 12px; font-variant-numeric: tabular-nums; }
+.moves li .no { color: var(--ink-mute); font-size: 11.5px; }
+.moves li .mw, .moves li .mb { font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: .02em; }
+.moves li .mb { color: var(--ink-dim); }
+.moves li.newest { background: rgba(214, 168, 80, .08); }
+.moves-empty { padding: 14px 13px 16px; font-size: 11.5px; color: var(--ink-mute); line-height: 1.8; }
+.moves-empty span { color: var(--ink-dim); }
+
+.action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.quick-rule { font-size: 11.5px; color: var(--ink-mute); line-height: 1.8; padding: 12px 13px;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 12px; }
+.quick-rule b { color: var(--gold); font-weight: 600; }
+
+.mobile-bar { display: none; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+@media (max-width: 980px) {
+  .mobile-bar { display: grid; }
+  .side .action-grid { display: none; }
+}
+
+/* ---------- 弹层 ---------- */
+.overlay { position: fixed; inset: 0; z-index: 40; display: none; align-items: center; justify-content: center;
+  background: rgba(6, 5, 4, .78); backdrop-filter: blur(6px); padding: 20px; }
+.overlay.on { display: flex; animation: fadein .22s ease-out; }
+@keyframes fadein { from { opacity: 0; } }
+.sheet {
+  width: min(94vw, 460px); background: linear-gradient(170deg, #1c1710, #12100c);
+  border: 1px solid var(--line-2); border-radius: 18px; padding: 26px 24px;
+  box-shadow: 0 30px 80px -30px #000; animation: rise .26s cubic-bezier(.2,.9,.3,1);
+}
+@keyframes rise { from { transform: translateY(14px) scale(.97); opacity: 0; } }
+.sheet h3 { font-family: var(--serif); font-size: 16px; margin: 0 0 6px; letter-spacing: .06em; }
+.sheet p { font-size: 12.5px; color: var(--ink-mute); line-height: 1.8; margin: 0; }
+
+.promo-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 18px 0 4px; }
+.promo-btn { appearance: none; background: #0f0d0a; border: 1px solid var(--line-2); border-radius: 12px;
+  padding: 8px; cursor: pointer; display: grid; place-items: center; gap: 4px; color: var(--ink-dim); font-family: inherit; font-size: 11px; }
+.promo-btn:hover { border-color: var(--gold); color: var(--gold-2); }
+.promo-btn img { width: 44px; height: 44px; }
+
+.result-sheet { text-align: center; }
+.result-stats { display: flex; justify-content: center; gap: 16px; margin-top: 16px; font-size: 12px;
+  color: var(--ink-mute); letter-spacing: .04em; flex-wrap: wrap; }
+.result-badge { width: 76px; height: 76px; margin: 0 auto 16px; border-radius: 50%; display: grid; place-items: center;
+  border: 1px solid var(--gold-dim); background: radial-gradient(circle at 50% 35%, rgba(214, 168, 80, .18), transparent 70%); }
+.result-badge svg { width: 36px; height: 36px; color: var(--gold-2); }
+.result-sheet.win .result-badge { border-color: var(--gold-dim); box-shadow: 0 0 30px -8px rgba(214, 168, 80, .5); background: radial-gradient(circle at 50% 35%, rgba(214, 168, 80, .22), transparent 72%); }
+.result-sheet.win .result-badge svg { color: var(--gold-2); }
+.result-sheet.lose .result-badge { border-color: rgba(207, 111, 95, .5); background: radial-gradient(circle at 50% 35%, rgba(207, 111, 95, .14), transparent 70%); }
+.result-sheet.lose .result-badge svg { color: var(--lose); }
+.result-title { font-family: var(--serif); font-size: 28px; font-weight: 900; letter-spacing: .12em; margin: 0 0 8px; }
+.result-reason { font-size: 12.5px; color: var(--ink-mute); letter-spacing: .04em; margin-bottom: 0; }
+.result-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 26px; }
+
+.rules-sheet { width: min(94vw, 560px); max-height: 88dvh; overflow-y: auto; }
+.rules-list { margin: 16px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.rules-list li { display: flex; gap: 11px; font-size: 13px; line-height: 1.75; color: var(--ink-dim); }
+.rules-list .n { flex: none; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center;
+  font-family: var(--num); font-size: 13px; color: var(--gold); border: 1px solid var(--gold-dim); }
+.rules-list b { color: var(--ink); font-weight: 600; }
+.mini-board { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); aspect-ratio: 1/1; width: 156px; margin: 18px auto 0;
+  border-radius: 8px; overflow: hidden; box-shadow: 0 0 0 1px var(--board-edge), 0 10px 24px -14px #000; }
+.mini-board i { display: block; font-style: normal; }
+.mini-board .lt { background: var(--board-light); }
+.mini-board .dk { background: var(--board-dark); }
+.mini-hill { position: absolute; left: 25%; top: 25%; width: 50%; height: 50%;
+  display: grid; place-items: center; border-radius: 3px;
+  background: rgba(255, 236, 196, .3); box-shadow: inset 0 0 0 1.5px rgba(255, 226, 168, .9); }
+.mini-hill svg { width: 42%; color: #fff2d2; opacity: .78; }
+
+.toast { position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%) translateY(12px);
+  background: #241d14; color: var(--gold-2); border: 1px solid var(--gold-dim); border-radius: 999px;
+  padding: 9px 18px; font-size: 12.5px; z-index: 60; opacity: 0; pointer-events: none; transition: .24s; }
+.toast.on { opacity: 1; transform: translateX(-50%) translateY(0); }
 </style>
 </head>
-<body>
+<body data-skin="walnut">
+<svg style="display:none" aria-hidden="true">
+  <symbol id="i-crown" viewBox="0 0 24 24"><path d="M3 18h18M4.5 17l-1.2-8.2 4.7 3.2L12 5l4 7 4.7-3.2L19.5 17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-bot" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="9" cy="13" r="1.4" fill="currentColor"/><circle cx="15" cy="13" r="1.4" fill="currentColor"/><path d="M12 8V4.5M9.5 4.5h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M8.5 16.5h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 20c0-3.3 2.7-5.2 6-5.2s6 1.9 6 5.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="17" cy="9" r="2.4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M21 19.5c0-2.4-1.8-3.8-4-3.8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M5 4h13v16H5z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9 4v16M8 9h3M8 13h3" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+  <symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 7H5v-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M5 7a8 8 0 1 1 1.6 8.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M6 21V4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M6 4h12l-2.4 4.2L18 13H6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="i-restart" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.4-5.7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M20 4v5h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11l8-6.5 8 6.5V20H4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9.5 20v-5.5h5V20" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+  <symbol id="i-vol" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13L7.5 14.5H4z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.8a7.4 7.4 0 0 1 0 10.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-mute" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13L7.5 14.5H4z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M16 9.5l5 5M21 9.5l-5 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M8.5 10V7.5a3.5 3.5 0 0 1 7 0V10" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+  <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 4h8v5a4 4 0 0 1-8 0z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M8 5.5H5.5a3 3 0 0 0 3 3.5M16 5.5h2.5a3 3 0 0 1-3 3.5M12 13v4M8.5 20h7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2.5L5.5 13H11l-1 8.5L18 11h-5.5z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 2.6v6c0 4.6-3 7.7-7 9.4-4-1.7-7-4.8-7-9.4v-6z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 12l2.2 2.2L15.4 10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+  <symbol id="i-medal" viewBox="0 0 24 24"><circle cx="12" cy="13" r="4.2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M9 9L6.5 3.5h11L15 9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+  <symbol id="i-king" viewBox="0 0 24 24"><path d="M12 4.5v5M10 6.5h4M7 10a5.5 5.5 0 0 0 5 10.5h.6a5.5 5.5 0 0 0 4.4-10.5M8.6 17.5c-.6 1.2-1.6 2-2.6 2.2M15.4 17.5c.6 1.2 1.6 2 2.6 2.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-swords" viewBox="0 0 24 24"><path d="M4 20l3.5-1 9-9M20 20l-3.5-1-9-9M14.5 4.5h5v5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M9.5 4.5h-5v5M5.6 15.4l3 3M18.4 15.4l-3 3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+</svg>
 
-<h1>山巅之王 · King of the Hill</h1>
-<div class="subtitle">标准国际象棋走法 + 王踏入中心4格即胜</div>
+<!-- ============ 大厅 ============ -->
+<section id="viewHome" class="view active">
+  <div class="home">
+    <header class="hero">
+      <div class="crest"><svg><use href="#i-crown" xlink:href="#i-crown"/></svg></div>
+      <h1>小兵战将</h1>
+      <p class="en-title">The Crowd and the Crown &middot; A Clash</p>
+      <div class="variant-tag">山巅之王 / KING OF THE HILL</div>
+      <p class="lede">
+        标准国际象棋，一步不改。唯一的新规则是：<b>谁的王踏入棋盘中央四格</b>（d4 · e4 · d5 · e5），
+        谁就当场加冕——这与将死对方是<b>同等级的胜利</b>。
+      </p>
+    </header>
 
-<div class="game-wrap">
-  <div class="board" id="board"></div>
-  <div class="sidebar">
-    <div class="panel">
-      <h2>对局状态</h2>
-      <div class="status-line"><span>回合</span><span class="val" id="turnLabel">白方</span></div>
-      <div class="status-line"><span>步数</span><span class="val" id="moveCount">0</span></div>
-      <div class="result-banner" id="resultBanner"></div>
-    </div>
-    <div class="panel">
-      <h2>控制</h2>
-      <button class="btn" id="btnPvE">人机对战（你执白）</button>
-      <button class="btn secondary" id="btnNewGame">双人对弈</button>
-      <button class="btn secondary" id="btnAI5">AI 对弈 5 局（测试）</button>
-      <button class="btn secondary" id="btnStop" disabled>停止自动对局</button>
-      <div class="progress-bar"><div class="fill" id="progressFill"></div></div>
-    </div>
-    <div class="panel">
-      <h2>5局统计</h2>
-      <div class="stats-grid">
-        <span class="label">白方胜</span><span class="num" id="statWW">0</span>
-        <span class="label">黑方胜</span><span class="num" id="statBW">0</span>
-        <span class="label">和棋</span><span class="num" id="statDraw">0</span>
-        <span class="label">将死胜</span><span class="num" id="statMate">0</span>
-        <span class="label">登顶胜</span><span class="num" id="statHill">0</span>
-        <span class="label">平均回合</span><span class="num" id="statAvgMoves">-</span>
+    <div class="modes">
+      <div class="mode-card" id="cardPve" role="button" tabindex="0">
+        <div class="mc-top">
+          <span class="mc-ico"><svg><use href="#i-bot" xlink:href="#i-bot"/></svg></span>
+          <span class="mc-title">人机对战</span>
+          <button class="mc-link" data-rules>规则详解</button>
+        </div>
+        <div class="mc-desc">你执白先行，对抗本地棋力引擎。难度决定它的计算深度。</div>
+        <div class="seg" id="segLevel">
+          <button data-level="easy" aria-pressed="false">简单</button>
+          <button data-level="normal" aria-pressed="true">普通</button>
+          <button data-level="hard" aria-pressed="false">困难</button>
+        </div>
+        <button class="cta">开始对局<svg style="width:14px;height:14px"><use href="#i-arrow" xlink:href="#i-arrow"/></svg></button>
+      </div>
+
+      <div class="mode-card" id="cardPvp" role="button" tabindex="0">
+        <div class="mc-top">
+          <span class="mc-ico"><svg><use href="#i-users" xlink:href="#i-users"/></svg></span>
+          <span class="mc-title">双人同屏</span>
+          <button class="mc-link" data-rules>规则详解</button>
+        </div>
+        <div class="mc-desc">同一台设备轮流走子，两人各守一侧，棋钟各自独立计时。</div>
+        <div class="seg"><button data-rules style="flex:1">先看看规则</button></div>
+        <button class="cta">开始双人对局<svg style="width:14px;height:14px"><use href="#i-arrow" xlink:href="#i-arrow"/></svg></button>
       </div>
     </div>
-    <div class="panel">
-      <h2>对局记录</h2>
-      <div class="gamelog" id="gamelog">点击「AI 对弈 5 局」开始自动测试…</div>
+
+    <div class="strip">
+      <div><div class="k" id="stGames">0</div><div class="l">对局</div></div>
+      <div><div class="k" id="stRate">—</div><div class="l">胜率</div></div>
+      <div><div class="k" id="stStreak">0</div><div class="l">连胜</div></div>
+      <div><div class="k" id="stFast">—</div><div class="l">最快加冕</div></div>
     </div>
-    <div class="panel">
-      <h2>规则速览</h2>
-      <div class="rules-hint">
-        <b>山顶</b> = d4 e4 d5 e5（金色框）<br>
-        <b>胜法A</b>：将死对方王<br>
-        <b>胜法B</b>：己方王合法走入山顶<br>
-        其余规则同标准国际象棋
+
+    <div class="block">
+      <div class="block-head"><h2>棋盘皮肤</h2><span class="note">胜场越多，解锁越多</span></div>
+      <div class="skins" id="skins"></div>
+    </div>
+
+    <div class="block">
+      <div class="block-head"><h2>战绩徽章</h2><span class="note" id="achCount">0 / 6</span></div>
+      <div class="achievements" id="achList"></div>
+    </div>
+
+    <div class="home-foot">
+      <div>棋钟 60 秒 + 每步 7 秒增量 &middot; 超时判负 &middot; 逼和 / 五十回合 / 三次重复均判和</div>
+      <div>棋子图标 <a href="https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces" target="_blank" rel="noopener">Cburnett</a>，CC BY-SA 3.0</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 对局 ============ -->
+<section id="viewGame" class="view">
+  <div class="game">
+    <div class="game-wrap">
+      <div class="board-col">
+        <div class="prow">
+          <div class="avatar" id="avTop"><svg><use href="#i-bot" xlink:href="#i-bot"/></svg></div>
+          <div class="pinfo">
+            <div class="pname"><span id="nameTop">引擎</span><span class="dot-turn off" id="turnTop"></span><span class="thinking" id="thinkTop"><i class="spin"></i>思考中</span></div>
+            <div class="captured" id="capTop"></div>
+          </div>
+          <div class="clock" id="clockTop">10:00<span class="inc">60+7</span></div>
+        </div>
+
+        <div class="board-frame">
+          <div class="board-holder">
+            <div class="gut-r"><span>8</span><span>7</span><span>6</span><span>5</span><span>4</span><span>3</span><span>2</span><span>1</span></div>
+            <div class="gut-f"><span>a</span><span>b</span><span>c</span><span>d</span><span>e</span><span>f</span><span>g</span><span>h</span></div>
+            <div class="board" id="board">
+            <div class="squares" id="squares"></div>
+            <div class="hill" id="hill">
+              <svg class="crown"><use href="#i-crown" xlink:href="#i-crown"/></svg>
+              <i class="br tl"></i><i class="br tr"></i><i class="br bl"></i><i class="br br2"></i>
+            </div>
+            <div class="pieces" id="pieces"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="prow">
+          <div class="avatar you" id="avBot"><svg><use href="#i-king" xlink:href="#i-king"/></svg></div>
+          <div class="pinfo">
+            <div class="pname"><span id="nameBot">你</span><span class="dot-turn" id="turnBot"></span></div>
+            <div class="captured" id="capBot"></div>
+          </div>
+          <div class="clock active" id="clockBot">01:00<span class="inc">60+7</span></div>
+        </div>
+
+        <div class="mobile-bar">
+          <button class="btn" id="mUndo" aria-label="悔棋" title="悔棋"><svg class="svg-ico" style="margin:0 auto"><use href="#i-undo" xlink:href="#i-undo"/></svg></button>
+          <button class="btn" id="mResign" aria-label="认输" title="认输"><svg class="svg-ico" style="margin:0 auto"><use href="#i-flag" xlink:href="#i-flag"/></svg></button>
+          <button class="btn" id="mNew" aria-label="重新开始" title="重新开始"><svg class="svg-ico" style="margin:0 auto"><use href="#i-restart" xlink:href="#i-restart"/></svg></button>
+          <button class="btn" id="mHome" aria-label="返回大厅" title="返回大厅"><svg class="svg-ico" style="margin:0 auto"><use href="#i-home" xlink:href="#i-home"/></svg></button>
+        </div>
       </div>
+
+      <aside class="side">
+        <div class="tag-row">
+          <span class="mode-tag" id="modeTag">人机 · 普通</span>
+          <button class="icon-btn" id="btnSound" title="音效" aria-label="音效开关"><svg class="svg-ico"><use href="#i-vol" xlink:href="#i-vol"/></svg></button>
+        </div>
+
+        <div class="moves-panel">
+          <div class="moves-head"><span>着法记录</span><span id="moveCount">0 回合</span></div>
+          <ol class="moves" id="movesList"></ol>
+        </div>
+
+        <div class="quick-rule">
+          <b>登顶</b>：王合法走到中央金色四格立即获胜。<br>
+          <b>将死</b>：与登顶同级，同样直接终局。<br>
+          <b>棋钟</b>：60 秒起，每走一步 +7 秒，归零判负。
+        </div>
+
+        <div class="action-grid">
+          <button class="btn" id="btnUndo"><svg class="svg-ico" style="display:inline-block;vertical-align:-3px;margin-right:6px"><use href="#i-undo" xlink:href="#i-undo"/></svg>悔棋</button>
+          <button class="btn" id="btnResign"><svg class="svg-ico" style="display:inline-block;vertical-align:-3px;margin-right:6px"><use href="#i-flag" xlink:href="#i-flag"/></svg>认输</button>
+          <button class="btn" id="btnNew">重新开始</button>
+          <button class="btn ghost" id="btnHall">返回大厅</button>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 升变 ============ -->
+<div class="overlay" id="ovPromo">
+  <div class="sheet">
+    <h3>兵升变</h3>
+    <p>选择你的兵要变成哪一枚棋子。</p>
+    <div class="promo-row" id="promoRow"></div>
+  </div>
+</div>
+
+<!-- ============ 结果 ============ -->
+<div class="overlay" id="ovResult">
+  <div class="sheet result-sheet" id="resultSheet">
+    <div class="result-badge"><svg><use href="#i-crown" xlink:href="#i-crown"/></svg></div>
+    <div class="result-title" id="resTitle">加冕</div>
+    <div class="result-reason" id="resReason"></div>
+    <div class="result-stats" id="resStats"></div>
+    <div class="result-actions">
+      <button class="btn gold" id="btnAgain">再来一局</button>
+      <button class="btn ghost" id="btnBackHall">返回大厅</button>
     </div>
   </div>
 </div>
 
-<script>
-const HILL = new Set(['d4','e4','d5','e5']);
-const UNI = { w:{k:'♔',q:'♕',r:'♖',b:'♗',n:'♘',p:'♙'}, b:{k:'♚',q:'♛',r:'♜',b:'♝',n:'♞',p:'♟'} };
-const VAL = { p:100, n:320, b:330, r:500, q:900, k:0 };
-const FILES = 'abcdefgh';
+<!-- ============ 规则 ============ -->
+<div class="overlay" id="ovRules">
+  <div class="sheet rules-sheet">
+    <h3>规则详解</h3>
+    <p>山巅之王是国际象棋的一个分支变体：走法完全不变，只多了一条全新胜利条件。</p>
+    <div class="mini-board" aria-hidden="true">
+      <i class="lt"></i><i class="dk"></i><i class="lt"></i><i class="dk"></i>
+      <i class="dk"></i><i class="lt"></i><i class="dk"></i><i class="lt"></i>
+      <i class="lt"></i><i class="dk"></i><i class="lt"></i><i class="dk"></i>
+      <i class="dk"></i><i class="lt"></i><i class="dk"></i><i class="lt"></i>
+      <span class="mini-hill"><svg><use href="#i-crown" xlink:href="#i-crown"/></svg></span>
+    </div>
+    <ul class="rules-list">
+      <li><span class="n">1</span><div><b>摆子</b>：双方按标准国际象棋初始摆法摆子，白先行。</div></li>
+      <li><span class="n">2</span><div><b>走法</b>：全部标准国象走法，含王车易位、吃过路兵、兵升变、将军规则。</div></li>
+      <li><span class="n">3</span><div><b>登顶</b>：己方王<b>主动走子</b>进入 d4 / e4 / d5 / e5 任意一格，立即获胜。王本来就在山顶不算，必须靠一步合法走子踏进去。</div></li>
+      <li><span class="n">4</span><div><b>将死</b>：把对方王将死同样直接获胜，与登顶平级。判定顺序：先校验登顶，再校验将死。</div></li>
+      <li><span class="n">5</span><div><b>限制</b>：王不能走入被攻击的格子，因此被将军时无法靠登顶翻盘。</div></li>
+      <li><span class="n">6</span><div><b>和棋</b>：逼和、五十回合、三次重复局面，均沿用标准国象。</div></li>
+      <li><span class="n">7</span><div><b>棋钟</b>：每方 60 秒起步，每走一步加 7 秒，先归零者判负。</div></li>
+    </ul>
+    <div style="margin-top:20px"><button class="btn gold" id="btnRulesClose" style="width:100%">知道了</button></div>
+  </div>
+</div>
 
-let chess, selectedSq, legalSel, lastMv, gameOver, autoRun;
-let gameMode = 'pvp'; // 'pvp' | 'pve'
-let aiThinking = false;
+<div class="toast" id="toast"></div>
 
-function newGame() {
-  chess = new Chess();
-  selectedSq = null; legalSel = []; lastMv = null; gameOver = false;
-  render(); updateStatus();
-}
+<script>(function () {
+  'use strict';
 
-function rc2sq(r,c){ return FILES[c]+(8-r); }
+  var PIECES = {"wK":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSJjb2xvci1zY2hlbWU6bGlnaHQgb25seSIgdmlld0JveD0iMCAwIDQ1IDQ1Ij48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjEuNSI+PHBhdGggc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIgZD0iTTIyLjUgMTEuNjNWNk0yMCA4aDUiLz48cGF0aCBmaWxsPSIjZmZmIiBzdHJva2UtbGluZWNhcD0iYnV0dCIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIgZD0iTTIyLjUgMjVzNC41LTcuNSAzLTEwLjVjMCAwLTEtMi41LTMtMi41cy0zIDIuNS0zIDIuNWMtMS41IDMgMyAxMC41IDMgMTAuNSIvPjxwYXRoIGZpbGw9IiNmZmYiIGQ9Ik0xMS41IDM3YzUuNSAzLjUgMTUuNSAzLjUgMjEgMHYtN3M5LTQuNSA2LTEwLjVjLTQtNi41LTEzLjUtMy41LTE2IDRWMjd2LTMuNWMtMy41LTcuNS0xMy0xMC41LTE2LTQtMyA2IDUgMTAgNSAxMHoiLz48cGF0aCBkPSJNMTEuNSAzMGM1LjUtMyAxNS41LTMgMjEgMG0tMjEgMy41YzUuNS0zIDE1LjUtMyAyMSAwbS0yMSAzLjVjNS41LTMgMTUuNS0zIDIxIDAiLz48L2c+PC9zdmc+","wQ":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSJjb2xvci1zY2hlbWU6bGlnaHQgb25seSIgd2lkdGg9IjQ1IiBoZWlnaHQ9IjQ1IiB2aWV3Qm94PSIwIDAgNDUgNDUiPjxnIGZpbGw9IiNmZmYiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlPSIjMDAwIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMS41Ij48cGF0aCBkPSJNOCAxMmEyIDIgMCAxIDEtNCAwIDIgMiAwIDEgMSA0IDBtMTYuNS00LjVhMiAyIDAgMSAxLTQgMCAyIDIgMCAxIDEgNCAwTTQxIDEyYTIgMiAwIDEgMS00IDAgMiAyIDAgMSAxIDQgME0xNiA4LjVhMiAyIDAgMSAxLTQgMCAyIDIgMCAxIDEgNCAwTTMzIDlhMiAyIDAgMSAxLTQgMCAyIDIgMCAxIDEgNCAwIi8+PHBhdGggc3Ryb2tlLWxpbmVjYXA9ImJ1dHQiIGQ9Ik05IDI2YzguNS0xLjUgMjEtMS41IDI3IDBsMi0xMi03IDExVjExbC01LjUgMTMuNS0zLTE1LTMgMTUtNS41LTE0VjI1TDcgMTR6Ii8+PHBhdGggc3Ryb2tlLWxpbmVjYXA9ImJ1dHQiIGQ9Ik05IDI2YzAgMiAxLjUgMiAyLjUgNCAxIDEuNSAxIDEgLjUgMy41LTEuNSAxLTEuNSAyLjUtMS41IDIuNS0xLjUgMS41LjUgMi41LjUgMi41IDYuNSAxIDE2LjUgMSAyMyAwIDAgMCAxLjUtMSAwLTIuNSAwIDAgLjUtMS41LTEtMi41LS41LTIuNS0uNS0yIC41LTMuNSAxLTIgMi41LTIgMi41LTQtOC41LTEuNS0xOC41LTEuNS0yNyAweiIvPjxwYXRoIGZpbGw9Im5vbmUiIGQ9Ik0xMS41IDMwYzMuNS0xIDE4LjUtMSAyMiAwTTEyIDMzLjVjNi0xIDE1LTEgMjEgMCIvPjwvZz48L3N2Zz4=","wR":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSJjb2xvci1zY2hlbWU6bGlnaHQgb25seSIgd2lkdGg9IjQ1IiBoZWlnaHQ9IjQ1IiB2aWV3Qm94PSIwIDAgNDUgNDUiPjxnIGZpbGw9IiNmZmYiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlPSIjMDAwIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMS41Ij48cGF0aCBzdHJva2UtbGluZWNhcD0iYnV0dCIgZD0iTTkgMzloMjd2LTNIOXptMy0zdi00aDIxdjR6bS0xLTIyVjloNHYyaDVWOWg1djJoNVY5aDR2NSIvPjxwYXRoIGQ9Im0zNCAxNC0zIDNIMTRsLTMtMyIvPjxwYXRoIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBkPSJNMzEgMTd2MTIuNUgxNFYxNyIvPjxwYXRoIGQ9Im0zMSAyOS41IDEuNSAyLjVoLTIwbDEuNS0yLjUiLz48cGF0aCBmaWxsPSJub25lIiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBkPSJNMTEgMTRoMjMiLz48L2c+PC9zdmc+","wB":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSJjb2xvci1zY2hlbWU6bGlnaHQgb25seSIgd2lkdGg9IjQ1IiBoZWlnaHQ9IjQ1IiB2aWV3Qm94PSIwIDAgNDUgNDUiPjxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlPSIjMDAwIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMS41Ij48ZyBmaWxsPSIjZmZmIiBzdHJva2UtbGluZWNhcD0iYnV0dCI+PHBhdGggZD0iTTkgMzZjMy4zOS0uOTcgMTAuMTEuNDMgMTMuNS0yIDMuMzkgMi40MyAxMC4xMSAxLjAzIDEzLjUgMiAwIDAgMS42NS41NCAzIDItLjY4Ljk3LTEuNjUuOTktMyAuNS0zLjM5LS45Ny0xMC4xMS40Ni0xMy41LTEtMy4zOSAxLjQ2LTEwLjExLjAzLTEzLjUgMS0xLjM1LjQ5LTIuMzIuNDctMy0uNSAxLjM1LTEuOTQgMy0yIDMtMnoiLz48cGF0aCBkPSJNMTUgMzJjMi41IDIuNSAxMi41IDIuNSAxNSAwIC41LTEuNSAwLTIgMC0yIDAtMi41LTIuNS00LTIuNS00IDUuNS0xLjUgNi0xMS41LTUtMTUuNS0xMSA0LTEwLjUgMTQtNSAxNS41IDAgMC0yLjUgMS41LTIuNSA0IDAgMC0uNS41IDAgMnoiLz48cGF0aCBkPSJNMjUgOGEyLjUgMi41IDAgMSAxLTUgMCAyLjUgMi41IDAgMSAxIDUgMHoiLz48L2c+PHBhdGggc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIgZD0iTTE3LjUgMjZoMTBNMTUgMzBoMTVtLTcuNS0xNC41djVNMjAgMThoNSIvPjwvZz48L3N2Zz4=","wN":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSJjb2xvci1zY2hlbWU6bGlnaHQgb25seSIgd2lkdGg9IjQ1IiBoZWlnaHQ9IjQ1IiB2aWV3Qm94PSIwIDAgNDUgNDUiPjxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlPSIjMDAwIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMS41Ij48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMjIgMTBjMTAuNSAxIDE2LjUgOCAxNiAyOUgxNWMwLTkgMTAtNi41IDgtMjEiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMjQgMThjLjM4IDIuOTEtNS41NSA3LjM3LTggOS0zIDItMi44MiA0LjM0LTUgNC0xLjA0Mi0uOTQgMS40MS0zLjA0IDAtMy0xIDAgLjE5IDEuMjMtMSAyLTEgMC00LjAwMyAxLTQtNCAwLTIgNi0xMiA2LTEyczEuODktMS45IDItMy41Yy0uNzMtLjk5NC0uNS0yLS41LTMgMS0xIDMgMi41IDMgMi41aDJzLjc4LTEuOTkyIDIuNS0zYzEgMCAxIDMgMSAzIi8+PHBhdGggZmlsbD0iIzAwMCIgZD0iTTkuNSAyNS41YS41LjUgMCAxIDEtMSAwIC41LjUgMCAxIDEgMSAwbTUuNDMzLTkuNzVhLjUgMS41IDMwIDEgMS0uODY2LS41LjUgMS41IDMwIDEgMSAuODY2LjUiLz48L2c+PC9zdmc+","wP":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSJjb2xvci1zY2hlbWU6bGlnaHQgb25seSIgd2lkdGg9IjQ1IiBoZWlnaHQ9IjQ1IiB2aWV3Qm94PSIwIDAgNDUgNDUiPjxwYXRoIGZpbGw9IiNmZmYiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2Utd2lkdGg9IjEuNSIgZD0iTTIyLjUgOWMtMi4yMSAwLTQgMS43OS00IDQgMCAuODkuMjkgMS43MS43OCAyLjM4QzE3LjMzIDE2LjUgMTYgMTguNTkgMTYgMjFjMCAyLjAzLjk0IDMuODQgMi40MSA1LjAzLTMgMS4wNi03LjQxIDUuNTUtNy40MSAxMy40N2gyM2MwLTcuOTItNC40MS0xMi40MS03LjQxLTEzLjQ3IDEuNDctMS4xOSAyLjQxLTMgMi40MS01LjAzIDAtMi40MS0xLjMzLTQuNS0zLjI4LTUuNjIuNDktLjY3Ljc4LTEuNDkuNzgtMi4zOCAwLTIuMjEtMS43OS00LTQtNHoiLz48L3N2Zz4=","bK":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSJjb2xvci1zY2hlbWU6bGlnaHQgb25seSIgdmlld0JveD0iMCAwIDQ1IDQ1Ij48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2Utd2lkdGg9IjEuNSI+PHBhdGggc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIgZD0iTTIyLjUgMTEuNlY2Ii8+PHBhdGggZmlsbD0iIzAwMCIgc3Ryb2tlLWxpbmVjYXA9ImJ1dHQiIHN0cm9rZS1saW5lam9pbj0ibWl0ZXIiIGQ9Ik0yMi41IDI1czQuNS03LjUgMy0xMC41YzAgMC0xLTIuNS0zLTIuNXMtMyAyLjUtMyAyLjVjLTEuNSAzIDMgMTAuNSAzIDEwLjUiLz48cGF0aCBmaWxsPSIjMDAwIiBkPSJNMTEuNSAzN2EyMi4zIDIyLjMgMCAwIDAgMjEgMHYtN3M5LTQuNSA2LTEwLjVjLTQtNi41LTEzLjUtMy41LTE2IDRWMjd2LTMuNWMtMy41LTcuNS0xMy0xMC41LTE2LTQtMyA2IDUgMTAgNSAxMHoiLz48cGF0aCBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBkPSJNMjAgOGg1Ii8+PHBhdGggc3Ryb2tlPSIjZWNlY2VjIiBkPSJNMzIgMjkuNXM4LjUtNCA2LTkuN0MzNC4xIDE0IDI1IDE4IDIyLjUgMjQuNnYyLjEtMi4xQzIwIDE4IDkuOSAxNCA3IDE5LjljLTIuNSA1LjYgNC44IDkgNC44IDkiLz48cGF0aCBzdHJva2U9IiNlY2VjZWMiIGQ9Ik0xMS41IDMwYzUuNS0zIDE1LjUtMyAyMSAwbS0yMSAzLjVjNS41LTMgMTUuNS0zIDIxIDBtLTIxIDMuNWM1LjUtMyAxNS41LTMgMjEgMCIvPjwvZz48L3N2Zz4=","bQ":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSJjb2xvci1zY2hlbWU6bGlnaHQgb25seSIgd2lkdGg9IjQ1IiBoZWlnaHQ9IjQ1IiB2aWV3Qm94PSIwIDAgNDUgNDUiPjxnIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlPSIjMDAwIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMS41Ij48ZyBzdHJva2U9Im5vbmUiPjxjaXJjbGUgY3g9IjYiIGN5PSIxMiIgcj0iMi43NSIvPjxjaXJjbGUgY3g9IjE0IiBjeT0iOSIgcj0iMi43NSIvPjxjaXJjbGUgY3g9IjIyLjUiIGN5PSI4IiByPSIyLjc1Ii8+PGNpcmNsZSBjeD0iMzEiIGN5PSI5IiByPSIyLjc1Ii8+PGNpcmNsZSBjeD0iMzkiIGN5PSIxMiIgcj0iMi43NSIvPjwvZz48cGF0aCBzdHJva2UtbGluZWNhcD0iYnV0dCIgZD0iTTkgMjZjOC41LTEuNSAyMS0xLjUgMjcgMGwyLjUtMTIuNUwzMSAyNWwtLjMtMTQuMS01LjIgMTMuNi0zLTE0LjUtMyAxNC41LTUuMi0xMy42TDE0IDI1IDYuNSAxMy41eiIvPjxwYXRoIHN0cm9rZS1saW5lY2FwPSJidXR0IiBkPSJNOSAyNmMwIDIgMS41IDIgMi41IDQgMSAxLjUgMSAxIC41IDMuNS0xLjUgMS0xLjUgMi41LTEuNSAyLjUtMS41IDEuNS41IDIuNS41IDIuNSA2LjUgMSAxNi41IDEgMjMgMCAwIDAgMS41LTEgMC0yLjUgMCAwIC41LTEuNS0xLTIuNS0uNS0yLjUtLjUtMiAuNS0zLjUgMS0yIDIuNS0yIDIuNS00LTguNS0xLjUtMTguNS0xLjUtMjcgMHoiLz48cGF0aCBmaWxsPSJub25lIiBzdHJva2UtbGluZWNhcD0iYnV0dCIgZD0iTTExIDM4LjVhMzUgMzUgMSAwIDAgMjMgMCIvPjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2VjZWNlYyIgZD0iTTExIDI5YTM1IDM1IDEgMCAxIDIzIDBtLTIxLjUgMi41aDIwbS0yMSAzYTM1IDM1IDEgMCAwIDIyIDBtLTIzIDNhMzUgMzUgMSAwIDAgMjQgMCIvPjwvZz48L3N2Zz4=","bR":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSJjb2xvci1zY2hlbWU6bGlnaHQgb25seSIgd2lkdGg9IjQ1IiBoZWlnaHQ9IjQ1IiB2aWV3Qm94PSIwIDAgNDUgNDUiPjxnIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlPSIjMDAwIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMS41Ij48cGF0aCBzdHJva2UtbGluZWNhcD0iYnV0dCIgZD0iTTkgMzloMjd2LTNIOXptMy41LTcgMS41LTIuNWgxN2wxLjUgMi41em0tLjUgNHYtNGgyMXY0eiIvPjxwYXRoIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBkPSJNMTQgMjkuNXYtMTNoMTd2MTN6Ii8+PHBhdGggc3Ryb2tlLWxpbmVjYXA9ImJ1dHQiIGQ9Ik0xNCAxNi41IDExIDE0aDIzbC0zIDIuNXpNMTEgMTRWOWg0djJoNVY5aDV2Mmg1VjloNHY1eiIvPjxwYXRoIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2VjZWNlYyIgc3Ryb2tlLWxpbmVqb2luPSJtaXRlciIgc3Ryb2tlLXdpZHRoPSIxIiBkPSJNMTIgMzUuNWgyMW0tMjAtNGgxOW0tMTgtMmgxN20tMTctMTNoMTdNMTEgMTRoMjMiLz48L2c+PC9zdmc+","bB":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSJjb2xvci1zY2hlbWU6bGlnaHQgb25seSIgd2lkdGg9IjQ1IiBoZWlnaHQ9IjQ1IiB2aWV3Qm94PSIwIDAgNDUgNDUiPjxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlPSIjMDAwIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMS41Ij48ZyBmaWxsPSIjMDAwIiBzdHJva2UtbGluZWNhcD0iYnV0dCI+PHBhdGggZD0iTTkgMzZjMy40LTEgMTAuMS40IDEzLjUtMiAzLjQgMi40IDEwLjEgMSAxMy41IDIgMCAwIDEuNi41IDMgMi0uNyAxLTEuNiAxLTMgLjUtMy40LTEtMTAuMS41LTEzLjUtMS0zLjQgMS41LTEwLjEgMC0xMy41IDEtMS40LjUtMi4zLjUtMy0uNSAxLjQtMiAzLTIgMy0yeiIvPjxwYXRoIGQ9Ik0xNSAzMmMyLjUgMi41IDEyLjUgMi41IDE1IDAgLjUtMS41IDAtMiAwLTIgMC0yLjUtMi41LTQtMi41LTQgNS41LTEuNSA2LTExLjUtNS0xNS41LTExIDQtMTAuNSAxNC01IDE1LjUgMCAwLTIuNSAxLjUtMi41IDQgMCAwLS41LjUgMCAyeiIvPjxwYXRoIGQ9Ik0yNSA4YTIuNSAyLjUgMCAxIDEtNSAwIDIuNSAyLjUgMCAxIDEgNSAweiIvPjwvZz48cGF0aCBzdHJva2U9IiNlY2VjZWMiIHN0cm9rZS1saW5lam9pbj0ibWl0ZXIiIGQ9Ik0xNy41IDI2aDEwTTE1IDMwaDE1bS03LjUtMTQuNXY1TTIwIDE4aDUiLz48L2c+PC9zdmc+","bN":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSJjb2xvci1zY2hlbWU6bGlnaHQgb25seSIgd2lkdGg9IjQ1IiBoZWlnaHQ9IjQ1IiB2aWV3Qm94PSIwIDAgNDUgNDUiPjxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlPSIjMDAwIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMS41Ij48cGF0aCBmaWxsPSIjMDAwIiBkPSJNMjIgMTBjMTAuNSAxIDE2LjUgOCAxNiAyOUgxNWMwLTkgMTAtNi41IDgtMjEiLz48cGF0aCBmaWxsPSIjMDAwIiBkPSJNMjQgMThjLjM4IDIuOTEtNS41NSA3LjM3LTggOS0zIDItMi44MiA0LjM0LTUgNC0xLjA0LS45NCAxLjQxLTMuMDQgMC0zLTEgMCAuMTkgMS4yMy0xIDItMSAwLTQgMS00LTQgMC0yIDYtMTIgNi0xMnMxLjg5LTEuOSAyLTMuNWMtLjczLTEtLjUtMi0uNS0zIDEtMSAzIDIuNSAzIDIuNWgycy43OC0yIDIuNS0zYzEgMCAxIDMgMSAzIi8+PHBhdGggZmlsbD0iI2VjZWNlYyIgc3Ryb2tlPSIjZWNlY2VjIiBkPSJNOS41IDI1LjVhLjUuNSAwIDEgMS0xIDAgLjUuNSAwIDEgMSAxIDBtNS40My05Ljc1YS41IDEuNSAzMCAxIDEtLjg2LS41LjUgMS41IDMwIDEgMSAuODYuNSIvPjxwYXRoIGZpbGw9IiNlY2VjZWMiIHN0cm9rZT0ibm9uZSIgZD0ibTI0LjU1IDEwLjQtLjQ1IDEuNDUuNS4xNWMzLjE1IDEgNS42NSAyLjQ5IDcuOSA2Ljc1UzM1Ljc1IDI5LjA2IDM1LjI1IDM5bC0uMDUuNWgyLjI1bC4wNS0uNWMuNS0xMC4wNi0uODgtMTYuODUtMy4yNS0yMS4zNHMtNS43OS02LjY0LTkuMTktNy4xNnoiLz48L2c+PC9zdmc+","bP":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHN0eWxlPSJjb2xvci1zY2hlbWU6bGlnaHQgb25seSIgd2lkdGg9IjQ1IiBoZWlnaHQ9IjQ1IiB2aWV3Qm94PSIwIDAgNDUgNDUiPjxwYXRoIHN0cm9rZT0iIzAwMCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2Utd2lkdGg9IjEuNSIgZD0iTTIyLjUgOWE0IDQgMCAwIDAtMy4yMiA2LjM4IDYuNDggNi40OCAwIDAgMC0uODcgMTAuNjVjLTMgMS4wNi03LjQxIDUuNTUtNy40MSAxMy40N2gyM2MwLTcuOTItNC40MS0xMi40MS03LjQxLTEzLjQ3YTYuNDYgNi40NiAwIDAgMC0uODctMTAuNjVBNC4wMSA0LjAxIDAgMCAwIDIyLjUgOXoiLz48L3N2Zz4="};
 
-function render() {
-  const el = document.getElementById('board');
-  el.innerHTML = '';
-  const bd = chess.board();
-  const chk = chess.in_check();
-  for (let r=0;r<8;r++) for (let c=0;c<8;c++) {
-    const sq = document.createElement('div');
-    sq.className = 'square '+((r+c)%2===0?'light':'dark');
-    const sname = rc2sq(r,c);
-    if (HILL.has(sname)) sq.classList.add('hill');
-    if (lastMv && (lastMv.from===sname||lastMv.to===sname)) sq.classList.add('last-move');
-    if (selectedSq===sname) sq.classList.add('selected');
-    if (chk && bd[r][c] && bd[r][c].type==='k' && bd[r][c].color===chess.turn()) sq.classList.add('check');
-    if (selectedSq) {
-      const t = legalSel.find(m=>m.to===sname);
-      if (t) {
-        if (bd[r][c] || t.flags.includes('e')) {
-          const ring=document.createElement('div'); ring.className='capture-ring'; sq.appendChild(ring);
-        } else {
-          const dot=document.createElement('div'); dot.className='dot'; sq.appendChild(dot);
+  var FILES = 'abcdefgh';
+  var HILL = ['d4', 'e4', 'd5', 'e5'];
+  var START = 60, INC = 7;
+  var VAL = { p: 100, n: 320, b: 330, r: 500, q: 900, k: 20000 };
+  var MATE = 1000000;
+
+  /* ================= 存储 ================= */
+  var PREF_KEY = 'xcbd.prefs.v1', STAT_KEY = 'xcbd.stats.v1';
+  function load(key, dft) {
+    try { var v = localStorage.getItem(key); return v ? JSON.parse(v) : dft; } catch (e) { return dft; }
+  }
+  function save(key, v) { try { localStorage.setItem(key, JSON.stringify(v)); } catch (e) {} }
+
+  var prefs = Object.assign({ skin: 'walnut', sound: true, level: 'normal' }, load(PREF_KEY, {}));
+  var stats = Object.assign({
+    games: 0, wins: 0, losses: 0, draws: 0, streak: 0, best: 0,
+    fastest: null, hillWins: 0, hardWins: 0
+  }, load(STAT_KEY, {}));
+
+  /* ================= DOM ================= */
+  var $ = function (id) { return document.getElementById(id); };
+  var viewHome = $('viewHome'), viewGame = $('viewGame');
+  var boardEl = $('board'), squaresEl = $('squares'), piecesEl = $('pieces'), hillEl = $('hill');
+  var movesList = $('movesList'), moveCountEl = $('moveCount');
+  var clockTop = $('clockTop'), clockBot = $('clockBot');
+  var nameTop = $('nameTop'), nameBot = $('nameBot');
+  var turnTop = $('turnTop'), turnBot = $('turnBot');
+  var capTop = $('capTop'), capBot = $('capBot');
+  var thinkTop = $('thinkTop'), modeTag = $('modeTag');
+
+  /* ================= 状态 ================= */
+  var game = null;
+  var mode = 'pve', level = prefs.level, humanColor = 'w';
+  var sel = null, legal = [], lastMove = null;
+  var over = false, busy = false, result = null;
+  var clocks = { w: START, b: START };
+  var startTs = 0;
+  var clockRunning = false, clockTimer = null, lastTs = 0;
+  var captured = { w: [], b: [] };
+  var drag = null, pendingMove = null;
+
+  /* ================= 工具 ================= */
+  function rc2sq(r, c) { return FILES[c] + (8 - r); }
+  function sq2rc(s) { return { c: FILES.indexOf(s[0]), r: 8 - parseInt(s[1], 10) }; }
+  function xy(s) { var o = sq2rc(s); return 'translate(' + (o.c * 100) + '%,' + (o.r * 100) + '%)'; }
+  function distToHill(r, c) {
+    var best = 99;
+    for (var i = 0; i < HILL.length; i++) {
+      var o = sq2rc(HILL[i]);
+      var d = Math.max(Math.abs(r - o.r), Math.abs(c - o.c));
+      if (d < best) best = d;
+    }
+    return best;
+  }
+
+  /* ================= 音效 ================= */
+  var ac = null;
+  function audio() {
+    if (!prefs.sound) return null;
+    try {
+      if (!ac) { var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return null; ac = new AC(); }
+      if (ac.state === 'suspended') ac.resume();
+    } catch (e) { return null; }
+    return ac;
+  }
+  function blip(freq, dur, vol, type, delay) {
+    var a = audio(); if (!a) return;
+    var o = a.createOscillator(), g = a.createGain();
+    var t0 = a.currentTime + (delay || 0);
+    o.type = type || 'sine'; o.frequency.value = freq;
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.exponentialRampToValueAtTime(vol, t0 + 0.012);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    o.connect(g); g.connect(a.destination);
+    o.start(t0); o.stop(t0 + dur + 0.02);
+  }
+  function thock(vol, freq) {
+    var a = audio(); if (!a) return;
+    var len = Math.floor(a.sampleRate * 0.05);
+    var buf = a.createBuffer(1, len, a.sampleRate), d = buf.getChannelData(0);
+    for (var i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3);
+    var src = a.createBufferSource(); src.buffer = buf;
+    var bp = a.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = freq || 1400; bp.Q.value = 1.5;
+    var g = a.createGain(); g.gain.value = vol || 0.22;
+    src.connect(bp); bp.connect(g); g.connect(a.destination); src.start();
+  }
+  function sfxMove() { thock(0.2, 1500); }
+  function sfxCapture() { thock(0.32, 720); blip(120, 0.13, 0.2, 'sine'); }
+  function sfxCheck() { blip(720, 0.09, 0.22, 'triangle'); blip(920, 0.1, 0.22, 'triangle', 0.1); }
+  function sfxWin() { [523, 659, 784, 1047].forEach(function (f, i) { blip(f, 0.16, 0.26, 'sine', i * 0.11); }); }
+  function sfxLose() { [415, 349, 262].forEach(function (f, i) { blip(f, 0.2, 0.2, 'sine', i * 0.13); }); }
+  function sfxTap() { blip(1200, 0.03, 0.08, 'square'); }
+
+  /* ================= 渲染：棋盘 ================= */
+  function syncBoard(anim) {
+    var bd = game.board();
+    var inChk = game.in_check();
+    var kingSq = null;
+    var hints = {};
+    sel && legal.forEach(function (m) { hints[m.to] = true; });
+
+    var allLegal = null;
+    try { allLegal = game.moves({ verbose: true }); } catch (e) { allLegal = []; }
+    var hillThreat = allLegal.some(function (m) { return m.piece === 'k' && HILL.indexOf(m.to) >= 0; });
+    hillEl.classList.toggle('hot', !!hillThreat);
+
+    squaresEl.innerHTML = '';
+    var frag = document.createDocumentFragment();
+    for (var r = 0; r < 8; r++) {
+      for (var c = 0; c < 8; c++) {
+        var sname = rc2sq(r, c);
+        var cell = bd[r][c];
+        var el = document.createElement('div');
+        var cls = 'sq ' + (((r + c) % 2 === 0) ? 'light' : 'dark');
+        if (lastMove && (lastMove.from === sname || lastMove.to === sname)) cls += ' last';
+        if (sel === sname) cls += ' sel';
+        if (inChk && cell && cell.type === 'k' && cell.color === game.turn()) cls += ' check';
+        el.className = cls;
+
+        if (hints[sname]) {
+          var mark = document.createElement('div');
+          mark.className = (cell || (legal.filter(function (m) { return m.to === sname && m.flags.indexOf('e') >= 0; }).length)) ? 'hint-ring' : 'hint-dot';
+          el.appendChild(mark);
         }
+        frag.appendChild(el);
       }
     }
-    if (bd[r][c]) {
-      const pe=document.createElement('span');
-      pe.className='piece '+bd[r][c].color;
-      pe.textContent=UNI[bd[r][c].color][bd[r][c].type];
-      sq.appendChild(pe);
+    squaresEl.appendChild(frag);
+    if (anim && anim.capSq) {
+      var ci = sq2rc(anim.capSq);
+      var cel = squaresEl.children[ci.r * 8 + ci.c];
+      if (cel) { var fx = document.createElement('div'); fx.className = 'flash'; cel.appendChild(fx); setTimeout(function () { fx.remove(); }, 450); }
     }
-    if (c===0){const rk=document.createElement('span');rk.className='coord rank';rk.textContent=8-r;sq.appendChild(rk);}
-    if (r===7){const fl=document.createElement('span');fl.className='coord file';fl.textContent=FILES[c];sq.appendChild(fl);}
-    sq.onclick=()=>onClick(r,c,sname);
-    el.appendChild(sq);
-  }
-}
 
-function updateStatus() {
-  document.getElementById('turnLabel').textContent = chess.turn()==='w'?'白方':'黑方';
-  document.getElementById('moveCount').textContent = Math.ceil(chess.history().length/2);
-}
-
-function onClick(r,c,sname) {
-  if (gameOver||autoRun||aiThinking) return;
-  if (gameMode==='pve' && chess.turn()==='b') return; // 你执白，黑方是AI
-  const cell = chess.board()[r][c];
-  if (selectedSq) {
-    const mv = legalSel.find(m=>m.to===sname);
-    if (mv) { doMove(mv); return; }
-    if (cell && cell.color===chess.turn()) { selectSq(sname); return; }
-    selectedSq=null; legalSel=[]; render();
-  } else if (cell && cell.color===chess.turn()) selectSq(sname);
-}
-
-function selectSq(s) {
-  selectedSq=s;
-  legalSel=chess.moves({square:s,verbose:true});
-  render();
-}
-
-function doMove(mv) {
-  const res = chess.move(mv);
-  if (!res) return;
-  lastMv = {from:res.from,to:res.to};
-  selectedSq=null; legalSel=[];
-  if (res.piece==='k' && HILL.has(res.to)) {
-    gameOver=true; showRes(res.color,'hill'); render(); updateStatus(); return;
-  }
-  if (chess.in_checkmate()) { gameOver=true; showRes(res.color==='w'?'b':'w','checkmate'); }
-  else if (chess.in_stalemate()) { gameOver=true; showRes(null,'stalemate'); }
-  else if (chess.in_draw()) { gameOver=true; showRes(null,'draw'); }
-  render(); updateStatus();
-  // PvE模式：走完后AI执黑回应
-  if (gameMode==='pve' && !gameOver) {
-    aiThinking = true;
-    setTimeout(()=>{
-      const aiMv = chooseAI();
-      if (aiMv) {
-        const r = chess.move(aiMv);
-        lastMv = {from:r.from,to:r.to};
-        if (r.piece==='k' && HILL.has(r.to)) {
-          gameOver=true; showRes(r.color,'hill');
-        } else if (chess.in_checkmate()) {
-          gameOver=true; showRes(r.color==='w'?'b':'w','checkmate');
-        } else if (chess.in_stalemate()) { gameOver=true; showRes(null,'stalemate'); }
-        else if (chess.in_draw()) { gameOver=true; showRes(null,'draw'); }
+    piecesEl.innerHTML = '';
+    for (var rr = 0; rr < 8; rr++) {
+      for (var cc = 0; cc < 8; cc++) {
+        var p = bd[rr][cc];
+        if (!p) continue;
+        var node = document.createElement('div');
+        node.className = 'pc';
+        node.dataset.sq = rc2sq(rr, cc);
+        node.style.transform = xy(node.dataset.sq);
+        var img = document.createElement('img');
+        img.src = PIECES[p.color + p.type.toUpperCase()];
+        img.alt = ''; img.draggable = false;
+        node.appendChild(img);
+        piecesEl.appendChild(node);
       }
-      aiThinking = false;
-      render(); updateStatus();
-    }, 300);
-  }
-}
-
-function showRes(w,reason) {
-  const b=document.getElementById('resultBanner');
-  let t='',cls='';
-  if (w) {
-    const n=w==='w'?'白方':'黑方';
-    t = reason==='checkmate'?`将死！${n}获胜！`:`登顶！${n}的王踏上了山顶！`;
-    cls = w==='w'?'win-w':'win-b';
-  } else {
-    t='和棋';
-    if(reason==='stalemate')t+='（逼和）';
-    if(reason==='draw')t+='（50回合/三次重复）';
-    cls='draw';
-  }
-  b.textContent=t; b.className='result-banner '+cls;
-}
-
-// ===== AI =====
-function evaluate() {
-  const bd=chess.board(); let sc=0;
-  for(let r=0;r<8;r++) for(let c=0;c<8;c++){
-    const cell=bd[r][c]; if(!cell) continue;
-    let v=VAL[cell.type];
-    const sname=rc2sq(r,c);
-    if(HILL.has(sname)){
-      if(cell.type==='k') v+=1500; else v+=30;
     }
-    if(cell.type==='k'){
-      const d=Math.abs(r-3.5)+Math.abs(c-3.5);
-      v-=d*20;
-    }
-    sc += cell.color==='w'?v:-v;
-  }
-  return sc;
-}
 
-function chooseAI() {
-  const moves=chess.moves({verbose:true});
-  if(!moves.length) return null;
-  // 山顶直接赢
-  for(const m of moves) if(m.piece==='k'&&HILL.has(m.to)) return m;
-  // 将死直接赢
-  for(const m of moves){ chess.move(m); const mate=chess.in_checkmate(); chess.undo(); if(mate) return m; }
-  // 贪心评估
-  const turn=chess.turn();
-  let best=turn==='w'?-Infinity:Infinity, bests=[];
-  for(const m of moves){
-    chess.move(m);
-    let sc=evaluate();
-    if(chess.in_check()) sc += turn==='w'?-50:50;
-    chess.undo();
-    if(turn==='w'){
-      if(sc>best){best=sc;bests=[m];} else if(sc===best)bests.push(m);
+    if (anim) {
+      animateTo(anim.to, anim.from);
+      if (anim.rookTo) animateTo(anim.rookTo, anim.rookFrom);
+    }
+    renderClocks();
+    renderTurns();
+  }
+
+  function animateTo(sq, fromSq) {
+    var node = piecesEl.querySelector('[data-sq="' + sq + '"]');
+    if (!node) return;
+    node.style.transition = 'none';
+    node.style.transform = xy(fromSq);
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        node.style.transition = '';
+        node.style.transform = xy(sq);
+      });
+    });
+  }
+
+  /* ================= 渲染：侧栏与玩家条 ================= */
+  function renderTurns() {
+    var t = game ? game.turn() : 'w';
+    turnTop.classList.toggle('off', t !== 'b' || over);
+    turnBot.classList.toggle('off', t !== 'w' || over);
+    clockTop.classList.toggle('active', t === 'b' && !over);
+    clockBot.classList.toggle('active', t === 'w' && !over);
+  }
+
+  function fmt(sec) {
+    var s = Math.max(0, Math.ceil(sec));
+    var m = Math.floor(s / 60), r = s % 60;
+    return (m < 10 ? '0' : '') + m + ':' + (r < 10 ? '0' : '') + r;
+  }
+
+  function renderClocks() {
+    clockTop.innerHTML = fmt(clocks.b) + '<span class="inc">60+7</span>';
+    clockBot.innerHTML = fmt(clocks.w) + '<span class="inc">60+7</span>';
+    clockTop.classList.toggle('low', clocks.b < 10);
+    clockBot.classList.toggle('low', clocks.w < 10);
+    renderTurns();
+  }
+
+  function renderMoves() {
+    var h = game.history();
+    var html = '';
+    for (var i = 0; i < h.length; i += 2) {
+      var newest = (i + 2 >= h.length) ? ' newest' : '';
+      html += '<li class="' + newest.trim() + '"><span class="no">' + (i / 2 + 1) + '.</span>' +
+        '<span class="mw">' + h[i] + '</span><span class="mb">' + (h[i + 1] || '') + '</span></li>';
+    }
+    if (!html) {
+      html = '<div class="moves-empty">尚无着法。<span>走第一步后，双方着法会按回合成对记录在这里。</span></div>';
+    }
+    movesList.innerHTML = html;
+    moveCountEl.textContent = Math.ceil(h.length / 2) + ' 回合';
+    movesList.scrollTop = movesList.scrollHeight;
+  }
+
+  function material(c) {
+    var s = 0;
+    captured[c].forEach(function (t) { s += VAL[t] || 0; });
+    return s;
+  }
+
+  function renderCaptured() {
+    function tray(color) {
+      var arr = captured[color].slice();
+      var order = { q: 0, r: 1, b: 2, n: 3, p: 4 };
+      arr.sort(function (a, b) { return order[a] - order[b]; });
+      var other = color === 'w' ? 'b' : 'w';
+      var diff = material(color) - material(other);
+      var html = arr.map(function (t) {
+        return '<img src="' + PIECES[other + t.toUpperCase()] + '" alt="">';
+      }).join('');
+      if (diff > 0) html += '<span class="adv">+' + (diff / 100).toFixed(0) + '</span>';
+      return html;
+    }
+    capTop.innerHTML = tray('b');
+    capBot.innerHTML = tray('w');
+  }
+
+  /* ================= 开局 ================= */
+  function setView(which) {
+    viewHome.classList.toggle('active', which === 'home');
+    viewGame.classList.toggle('active', which === 'game');
+  }
+
+  function startGame(m, lv) {
+    mode = m;
+    level = lv || prefs.level;
+    humanColor = 'w';
+    game = new Chess();
+    startTs = Date.now();
+    sel = null; legal = []; lastMove = null; drag = null;
+    over = false; busy = false; result = null;
+    clocks = { w: START, b: START };
+    clockRunning = false;
+    captured = { w: [], b: [] };
+    if (clockTimer) { clearInterval(clockTimer); clockTimer = null; }
+    $('ovResult').classList.remove('on');
+    $('ovPromo').classList.remove('on');
+
+    if (mode === 'pve') {
+      nameTop.textContent = '引擎 · ' + ({ easy: '简单', normal: '普通', hard: '困难' }[level]);
+      nameBot.textContent = '你';
+      modeTag.textContent = '人机 · ' + ({ easy: '简单', normal: '普通', hard: '困难' }[level]);
     } else {
-      if(sc<best){best=sc;bests=[m];} else if(sc===best)bests.push(m);
+      nameTop.textContent = '黑方';
+      nameBot.textContent = '白方';
+      modeTag.textContent = '双人同屏';
     }
+    renderMoves();
+    renderCaptured();
+    syncBoard(null);
+    renderClocks();
+    setView('game');
+    sfxTap();
   }
-  return bests[Math.floor(Math.random()*bests.length)];
-}
 
-// ===== 自动对局 =====
-const stats={ww:0,bw:0,draw:0,mate:0,hill:0,total:0,games:0};
-const logEl=document.getElementById('gamelog');
-let logHtml='';
-function addLog(h){ logHtml=h+logHtml; logEl.innerHTML=logHtml; }
-
-async function runAI(n) {
-  autoRun=true;
-  document.getElementById('btnAI5').disabled=true;
-  document.getElementById('btnStop').disabled=false;
-  document.getElementById('btnNewGame').disabled=true;
-  Object.assign(stats,{ww:0,bw:0,draw:0,mate:0,hill:0,total:0,games:0});
-  logHtml=''; updateStats();
-  for(let i=0;i<n;i++){
-    if(!autoRun) break;
-    const r=await playGame(i+1);
-    stats.games++; stats.total+=r.moves;
-    if(r.winner==='w')stats.ww++; else if(r.winner==='b')stats.bw++; else stats.draw++;
-    if(r.reason==='checkmate')stats.mate++;
-    if(r.reason==='hill')stats.hill++;
-    updateStats();
-    document.getElementById('progressFill').style.width=(stats.games/n*100)+'%';
-    await sleep(150);
+  function startClock() {
+    if (clockRunning) return;
+    clockRunning = true;
+    lastTs = performance.now();
+    clockTimer = setInterval(function () {
+      if (!clockRunning || over) return;
+      var now = performance.now();
+      var dt = (now - lastTs) / 1000;
+      lastTs = now;
+      var t = game.turn();
+      clocks[t] -= dt;
+      if (clocks[t] <= 0) {
+        clocks[t] = 0;
+        renderClocks();
+        endGame(t === 'w' ? 'b' : 'w', 'timeout');
+        return;
+      }
+      renderClocks();
+    }, 120);
   }
-  autoRun=false;
-  document.getElementById('btnAI5').disabled=false;
-  document.getElementById('btnStop').disabled=true;
-  document.getElementById('btnNewGame').disabled=false;
-  addLog('<div style="color:#e8c170">=== '+n+'局测试完成 ===</div>');
-}
 
-function playGame(gn) {
-  return new Promise(res=>{
-    newGame();
-    let mc=0; const max=120;
-    function step(){
-      if(!autoRun){res({winner:null,reason:'stopped',moves:mc});return;}
-      if(gameOver||mc>=max){
-        if(mc>=max&&!gameOver){
-          addLog('<div class="game-entry"><b>第'+gn+'局</b>：超过'+max+'步终止（和棋）· '+mc+'步</div>');
-          res({winner:null,reason:'maxmoves',moves:mc});
+  /* ================= 走子 ================= */
+  function onDown(e) {
+    if (over || busy || !game) return;
+    if (document.querySelector('.overlay.on')) return;
+    if (mode === 'pve' && game.turn() !== humanColor) return;
+    var sq = sqAt(e.clientX, e.clientY);
+    if (!sq) return;
+    var piece = game.get(sq);
+    var myTurn = game.turn();
+
+    if (sel && sel !== sq) {
+      var target = legal.filter(function (m) { return m.to === sq; });
+      if (target.length) { attemptMove(sel, sq, target); return; }
+    }
+    if (piece && piece.color === myTurn) {
+      sel = sq;
+      legal = game.moves({ square: sq, verbose: true });
+      syncBoard(null);
+      sfxTap();
+      beginDrag(sq, e);
+      return;
+    }
+    if (sel) { sel = null; legal = []; syncBoard(null); }
+  }
+
+  var dragStart = { x: 0, y: 0 };
+
+  function beginDrag(sq, e) {
+    drag = { sq: sq, node: piecesEl.querySelector('[data-sq="' + sq + '"]'), moved: false };
+    dragStart.x = e.clientX; dragStart.y = e.clientY;
+    try { boardEl.setPointerCapture(e.pointerId); } catch (err) {}
+  }
+
+  function onMove(e) {
+    if (!drag) return;
+    if (!drag.moved) {
+      if (Math.abs(e.clientX - dragStart.x) < 5 && Math.abs(e.clientY - dragStart.y) < 5) return;
+      drag.moved = true;
+      if (drag.node) drag.node.classList.add('dragging');
+    }
+    if (!drag.node) return;
+    var rect = boardEl.getBoundingClientRect();
+    var size = rect.width / 8;
+    var x = e.clientX - rect.left - size / 2;
+    var y = e.clientY - rect.top - size / 2;
+    drag.node.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+  }
+
+  function onUp(e) {
+    if (!drag) return;
+    var d = drag; drag = null;
+    if (d.node) d.node.classList.remove('dragging');
+    if (!d.moved) return;
+    var sq = sqAt(e.clientX, e.clientY);
+    if (sq && sq !== d.sq) {
+      var target = legal.filter(function (m) { return m.to === sq; });
+      if (target.length) { attemptMove(d.sq, sq, target); return; }
+    }
+    syncBoard(null);
+  }
+
+  function sqAt(cx, cy) {
+    var rect = boardEl.getBoundingClientRect();
+    if (cx < rect.left || cx > rect.right || cy < rect.top || cy > rect.bottom) return null;
+    var size = rect.width / 8;
+    var c = Math.floor((cx - rect.left) / size);
+    var r = Math.floor((cy - rect.top) / size);
+    if (c < 0 || c > 7 || r < 0 || r > 7) return null;
+    return rc2sq(r, c);
+  }
+
+  function attemptMove(from, to, cands) {
+    if (cands.some(function (m) { return m.flags.indexOf('p') >= 0; })) {
+      pendingMove = { from: from, to: to };
+      openPromotion();
+      return;
+    }
+    exec(from, to, null);
+  }
+
+  function exec(from, to, promo) {
+    var mv = game.move({ from: from, to: to, promotion: promo || undefined });
+    if (!mv) { syncBoard(null); return; }
+    sel = null; legal = [];
+    afterMove(mv);
+  }
+
+  function afterMove(mv) {
+    lastMove = { from: mv.from, to: mv.to };
+    startClock();
+    clocks[mv.color] += INC;
+
+    var anim = { from: mv.from, to: mv.to, capSq: mv.captured ? mv.to : null };
+    if (mv.flags.indexOf('k') >= 0) {
+      var kr = sq2rc(mv.to).r;
+      anim.rookFrom = 'h' + (8 - kr); anim.rookTo = 'f' + (8 - kr);
+    } else if (mv.flags.indexOf('q') >= 0) {
+      var kr2 = sq2rc(mv.to).r;
+      anim.rookFrom = 'a' + (8 - kr2); anim.rookTo = 'd' + (8 - kr2);
+    }
+    if (mv.captured) captured[mv.color].push(mv.captured);
+
+    syncBoard(anim);
+    renderMoves();
+    renderCaptured();
+
+    if (mv.captured) sfxCapture(); else sfxMove();
+
+    // 胜负判定：先登顶，再将军/将死
+    if (mv.piece === 'k' && HILL.indexOf(mv.to) >= 0) {
+      endGame(mv.color, 'hill');
+      return;
+    }
+    if (game.in_checkmate()) { endGame(mv.color === 'w' ? 'b' : 'w', 'mate'); return; }
+    if (game.in_stalemate()) { endGame(null, 'stalemate'); return; }
+    if (game.in_draw()) { endGame(null, 'draw'); return; }
+    if (game.in_check()) sfxCheck();
+
+    if (mode === 'pve' && game.turn() !== humanColor && !over) scheduleAI(340);
+  }
+
+  /* ================= 结案 ================= */
+  function endGame(winner, reason) {
+    if (over) return;
+    over = true;
+    clockRunning = false;
+    if (clockTimer) { clearInterval(clockTimer); clockTimer = null; }
+    busy = false;
+    sel = null; legal = [];
+    setThinking(false);
+    result = { winner: winner, reason: reason };
+    syncBoard(null);
+    recordStats(winner, reason);
+    showResult(winner, reason);
+  }
+
+  function reasonText(r) {
+    return {
+      hill: '王踏入山巅四格，加冕成功',
+      mate: '将死',
+      timeout: '棋钟归零，超时判负',
+      stalemate: '无子可动，逼和',
+      draw: '五十回合 / 三次重复 / 子力不足',
+      resign: '一方认输'
+    }[r] || '';
+  }
+
+  function showResult(winner, reason) {
+    var sheet = $('resultSheet');
+    sheet.classList.remove('win', 'lose');
+    var title = '', sub = reasonText(reason);
+
+    var human = mode === 'pve' ? humanColor : null;
+    if (!winner) {
+      title = '和棋';
+      sub = reasonText(reason);
+    } else if (mode === 'pve') {
+      if (winner === human) {
+        sheet.classList.add('win');
+        title = reason === 'hill' ? '加冕' : reason === 'mate' ? '将死取胜' : reason === 'timeout' ? '对手超时' : '胜';
+        sfxWin();
+      } else {
+        sheet.classList.add('lose');
+        title = reason === 'hill' ? '山巅易主' : reason === 'mate' ? '被将死' : reason === 'timeout' ? '超时判负' : '败';
+        sfxLose();
+      }
+    } else {
+      var wn = winner === 'w' ? '白方' : '黑方';
+      title = reason === 'hill' ? wn + '加冕' : reason === 'mate' ? wn + '将死' : wn + '获胜';
+      winner === 'w' ? sfxWin() : sfxLose();
+    }
+    $('resTitle').textContent = title;
+    $('resReason').textContent = sub;
+    var turns = Math.ceil(game.history().length / 2);
+    var secs = Math.max(1, Math.round((Date.now() - startTs) / 1000));
+    var mm = Math.floor(secs / 60), ss = secs % 60;
+    var bits = ['共 ' + turns + ' 回合', '用时 ' + mm + ':' + (ss < 10 ? '0' : '') + ss];
+    if (mode === 'pve') bits.push('当前连胜 ' + stats.streak);
+    $('resStats').textContent = bits.join(' · ');
+    setTimeout(function () { $('ovResult').classList.add('on'); }, 620);
+  }
+
+  function recordStats(winner, reason) {
+    stats.games++;
+    if (mode === 'pve') {
+      if (!winner) { stats.draws++; stats.streak = 0; }
+      else if (winner === humanColor) {
+        stats.wins++;
+        stats.streak++;
+        if (stats.streak > stats.best) stats.best = stats.streak;
+        if (reason === 'hill') stats.hillWins++;
+        if (level === 'hard') stats.hardWins++;
+        if (reason === 'hill') {
+          var mvCount = Math.ceil(game.history().length / 2);
+          if (stats.fastest === null || mvCount < stats.fastest) stats.fastest = mvCount;
         }
-        return;
-      }
-      const mv=chooseAI();
-      if(!mv){
-        if(chess.in_checkmate()){gameOver=true;const w=chess.turn()==='w'?'b':'w';fin(w,'checkmate',mc,gn,res);}
-        else{gameOver=true;fin(null,'stalemate',mc,gn,res);}
-        return;
-      }
-      const r=chess.move(mv); mc++;
-      lastMv={from:r.from,to:r.to};
-      let w=null,reason=null;
-      if(r.piece==='k'&&HILL.has(r.to)){w=r.color;reason='hill';gameOver=true;}
-      else if(chess.in_checkmate()){w=r.color==='w'?'b':'w';reason='checkmate';gameOver=true;}
-      else if(chess.in_stalemate()){reason='stalemate';gameOver=true;}
-      else if(chess.in_draw()){reason='draw';gameOver=true;}
-      render(); updateStatus();
-      if(gameOver) fin(w,reason,mc,gn,res);
-      else setTimeout(step,10);
+      } else { stats.losses++; stats.streak = 0; }
+    } else {
+      if (reason === 'hill') stats.hillWins++;
     }
-    step();
+    save(STAT_KEY, stats);
+    renderHomeStats();
+    renderAchievements();
+    renderSkins();
+  }
+
+  /* ================= AI ================= */
+  function setThinking(on) { thinkTop.classList.toggle('on', !!on); }
+
+  function scheduleAI(delay) {
+    busy = true;
+    setThinking(true);
+    setTimeout(function () {
+      var mv = null;
+      try { mv = aiChoose(); } catch (e) { mv = null; }
+      setThinking(false);
+      if (!mv) { busy = false; return; }
+      var m = game.move(mv);
+      busy = false;
+      if (m) afterMove(m);
+      else syncBoard(null);
+    }, delay || 300);
+  }
+
+  function orderMoves(moves) {
+    moves.forEach(function (m) {
+      var s = 0;
+      if (m.captured) s += 100 + (VAL[m.captured] || 0) / 10;
+      if (m.flags.indexOf('p') >= 0) s += 80;
+      if (m.san && m.san.indexOf('+') >= 0) s += 20;
+      m.__o = s;
+    });
+    moves.sort(function (a, b) { return b.__o - a.__o; });
+    return moves;
+  }
+
+  function aiChoose() {
+    var moves = game.moves({ verbose: true });
+    if (!moves.length) return null;
+
+    // 1) 一步登顶直接获胜
+    for (var i = 0; i < moves.length; i++) {
+      if (moves[i].piece === 'k' && HILL.indexOf(moves[i].to) >= 0) return moves[i];
+    }
+    // 2) 一步将死
+    for (var j = 0; j < moves.length; j++) {
+      var m = moves[j];
+      game.move(m);
+      var mate = game.in_checkmate();
+      game.undo();
+      if (mate) return m;
+    }
+    // 3) 简单难度：贪心一层 + 随机扰动
+    if (level === 'easy') {
+      orderMoves(moves);
+      var bestE = -Infinity, bestList = [];
+      for (var e = 0; e < moves.length; e++) {
+        var me = moves[e];
+        game.move(me);
+        var sce = (me.piece === 'k' && HILL.indexOf(me.to) >= 0) ? MATE : -negamax(1, -Infinity, Infinity, 1, Infinity);
+        game.undo();
+        sce += Math.random() * 80 - 40;
+        if (sce > bestE) { bestE = sce; bestList = [me]; }
+        else if (sce === bestE) bestList.push(me);
+      }
+      return bestList[Math.floor(Math.random() * bestList.length)];
+    }
+
+    // 4) 普通/困难：迭代加深 + 时间预算（先浅层探路，再逐层加深直到超时）
+    var budget = level === 'hard' ? 620 : 220;
+    var maxDepth = level === 'hard' ? 4 : 3;
+    var deadline = performance.now() + budget;
+    var finalMove = null;
+
+    for (var d = 1; d <= maxDepth; d++) {
+      aborted = false;
+      nodeCount = 0;
+      var res = rootSearch(d, deadline);
+      if (!res) break;                 // 本层被打断，沿用上一层的结果
+      finalMove = res;
+      if (performance.now() > deadline - budget * 0.3) break;
+    }
+    return finalMove || moves[0];
+  }
+
+  var searchDeadline = 0, aborted = false, nodeCount = 0;
+
+  function rootSearch(depth, deadline) {
+    var moves = game.moves({ verbose: true });
+    if (!moves.length) return null;
+    orderMoves(moves);
+    var best = -Infinity, bestMove = moves[0];
+    for (var i = 0; i < moves.length; i++) {
+      var m = moves[i];
+      game.move(m);
+      var sc;
+      if (m.piece === 'k' && HILL.indexOf(m.to) >= 0) sc = MATE;
+      else sc = -negamax(depth - 1, -Infinity, -best, 1, deadline);
+      game.undo();
+      if (aborted) return null;
+      if (sc > best) { best = sc; bestMove = m; }
+    }
+    return bestMove;
+  }
+
+  function negamax(depth, alpha, beta, ply, deadline) {
+    if (aborted) return 0;
+    nodeCount++;
+    if ((nodeCount & 63) === 0 && performance.now() > deadline) { aborted = true; return 0; }
+    if (depth <= 0) return evalSide();
+    var moves = game.moves({ verbose: true });
+    if (!moves.length) return game.in_check() ? (-MATE + ply) : 0;
+    orderMoves(moves);
+    var best = -Infinity;
+    for (var i = 0; i < moves.length; i++) {
+      var m = moves[i];
+      game.move(m);
+      var sc;
+      if (m.piece === 'k' && HILL.indexOf(m.to) >= 0) sc = MATE - ply;
+      else sc = -negamax(depth - 1, -beta, -alpha, ply + 1, deadline);
+      game.undo();
+      if (aborted) return 0;
+      if (sc > best) best = sc;
+      if (best > alpha) alpha = best;
+      if (alpha >= beta) break;
+    }
+    return best;
+  }
+
+  function evalSide() { return (game.turn() === 'w' ? 1 : -1) * evalWhite(); }
+
+  // 经典简化评估表（白方视角，第 0 行 = 第 8 排）
+  var PST = {
+    p: [0, 0, 0, 0, 0, 0, 0, 0,
+      50, 50, 50, 50, 50, 50, 50, 50,
+      10, 10, 20, 30, 30, 20, 10, 10,
+      5, 5, 10, 25, 25, 10, 5, 5,
+      0, 0, 0, 20, 20, 0, 0, 0,
+      5, -5, -10, 0, 0, -10, -5, 5,
+      5, 10, 10, -20, -20, 10, 10, 5,
+      0, 0, 0, 0, 0, 0, 0, 0],
+    n: [-50, -40, -30, -30, -30, -30, -40, -50,
+      -40, -20, 0, 0, 0, 0, -20, -40,
+      -30, 0, 10, 15, 15, 10, 0, -30,
+      -30, 5, 15, 20, 20, 15, 5, -30,
+      -30, 0, 15, 20, 20, 15, 0, -30,
+      -30, 5, 10, 15, 15, 10, 5, -30,
+      -40, -20, 0, 5, 5, 0, -20, -40,
+      -50, -40, -30, -30, -30, -30, -40, -50],
+    b: [-20, -10, -10, -10, -10, -10, -10, -20,
+      -10, 0, 0, 0, 0, 0, 0, -10,
+      -10, 0, 5, 10, 10, 5, 0, -10,
+      -10, 5, 5, 10, 10, 5, 5, -10,
+      -10, 0, 10, 10, 10, 10, 0, -10,
+      -10, 10, 10, 10, 10, 10, 10, -10,
+      -10, 5, 0, 0, 0, 0, 5, -10,
+      -20, -10, -10, -10, -10, -10, -10, -20],
+    r: [0, 0, 0, 0, 0, 0, 0, 0,
+      5, 10, 10, 10, 10, 10, 10, 5,
+      -5, 0, 0, 0, 0, 0, 0, -5,
+      -5, 0, 0, 0, 0, 0, 0, -5,
+      -5, 0, 0, 0, 0, 0, 0, -5,
+      -5, 0, 0, 0, 0, 0, 0, -5,
+      -5, 0, 0, 0, 0, 0, 0, -5,
+      0, 0, 0, 5, 5, 0, 0, 0],
+    q: [-20, -10, -10, -5, -5, -10, -10, -20,
+      -10, 0, 0, 0, 0, 0, 0, -10,
+      -10, 0, 5, 5, 5, 5, 0, -10,
+      -5, 0, 5, 5, 5, 5, 0, -5,
+      0, 0, 5, 5, 5, 5, 0, -5,
+      -10, 5, 5, 5, 5, 5, 0, -10,
+      -10, 0, 5, 0, 0, 0, 0, -10,
+      -20, -10, -10, -5, -5, -10, -10, -20],
+    k: [-30, -40, -40, -50, -50, -40, -40, -30,
+      -30, -40, -40, -50, -50, -40, -40, -30,
+      -30, -40, -40, -50, -50, -40, -40, -30,
+      -30, -40, -40, -50, -50, -40, -40, -30,
+      -20, -30, -30, -40, -40, -30, -30, -20,
+      -10, -20, -20, -20, -20, -20, -20, -10,
+      20, 20, 0, 0, 0, 0, 20, 20,
+      20, 30, 10, 0, 0, 10, 30, 20]
+  };
+
+  function evalWhite() {
+    var bd = game.board(), s = 0;
+    for (var r = 0; r < 8; r++) {
+      for (var c = 0; c < 8; c++) {
+        var p = bd[r][c];
+        if (!p) continue;
+        var table = PST[p.type];
+        var idx = p.color === 'w' ? (r * 8 + c) : ((7 - r) * 8 + c);
+        var v = VAL[p.type] + table[idx];
+        if (p.type === 'k') {
+          v -= distToHill(r, c) * 9;
+          if (HILL.indexOf(rc2sq(r, c)) >= 0) v += 260;
+        }
+        s += p.color === 'w' ? v : -v;
+      }
+    }
+    return s;
+  }
+
+  /* ================= 悔棋 / 认输 ================= */
+  function undoMove() {
+    if (over || busy || !game) return;
+    var n = game.history().length;
+    if (!n) return;
+    game.undo();
+    if (mode === 'pve' && game.history().length > 0 && game.turn() !== humanColor) game.undo();
+    // 重新计算吃子与最后一步
+    captured = { w: [], b: [] };
+    var hist = game.history({ verbose: true });
+    hist.forEach(function (m) { if (m.captured) captured[m.color].push(m.captured); });
+    lastMove = hist.length ? { from: hist[hist.length - 1].from, to: hist[hist.length - 1].to } : null;
+    sel = null; legal = [];
+    syncBoard(null);
+    renderMoves();
+    renderCaptured();
+    sfxTap();
+  }
+
+  /* ================= 升变弹窗 ================= */
+  function openPromotion() {
+    var color = game.turn();
+    var row = $('promoRow');
+    row.innerHTML = '';
+    ['q', 'r', 'b', 'n'].forEach(function (t) {
+      var b = document.createElement('button');
+      b.className = 'promo-btn';
+      b.innerHTML = '<img src="' + PIECES[color + t.toUpperCase()] + '" alt=""><span>' +
+        ({ q: '皇后', r: '车', b: '象', n: '马' }[t]) + '</span>';
+      b.onclick = function () {
+        $('ovPromo').classList.remove('on');
+        var pm = pendingMove; pendingMove = null;
+        if (pm) exec(pm.from, pm.to, t);
+      };
+      row.appendChild(b);
+    });
+    $('ovPromo').classList.add('on');
+  }
+
+  /* ================= 大厅 ================= */
+  function renderHomeStats() {
+    $('stGames').textContent = stats.games;
+    var decided = stats.wins + stats.losses + stats.draws;
+    $('stRate').textContent = decided ? Math.round(stats.wins / decided * 100) + '%' : '—';
+    $('stStreak').textContent = stats.streak;
+    $('stFast').textContent = stats.fastest ? stats.fastest + ' 步' : '—';
+  }
+
+  var SKINS = [
+    { id: 'walnut', name: '胡桃木', need: 0, light: '#ecd8b6', dark: '#a3764f' },
+    { id: 'jade', name: '青瓷', need: 5, light: '#e6ebdf', dark: '#6e8b76' },
+    { id: 'night', name: '墨岩', need: 10, light: '#cdc7bb', dark: '#54504a' }
+  ];
+
+  function renderSkins() {
+    var box = $('skins');
+    box.innerHTML = '';
+    SKINS.forEach(function (sk) {
+      var locked = stats.wins < sk.need;
+      var el = document.createElement('button');
+      el.className = 'skin-chip';
+      el.dataset.active = String(prefs.skin === sk.id && !locked);
+      el.dataset.locked = String(locked);
+      var cells = '';
+      for (var i = 0; i < 8; i++) {
+        cells += '<i style="background:' + (((i + Math.floor(i / 4)) % 2 === 0) ? sk.light : sk.dark) + '"></i>';
+      }
+      el.innerHTML = '<div class="skin-pv">' + cells + '</div>' +
+        '<span class="skin-name">' + sk.name +
+        (locked ? '<svg class="svg-ico" style="width:13px;height:13px"><use href="#i-lock" xlink:href="#i-lock"/></svg>' : '') +
+        '</span>' +
+        '<span class="skin-lock">' + (locked ? '需 ' + sk.need + ' 胜解锁' : '已解锁') + '</span>';
+      el.onclick = function () {
+        if (locked) { toast('还差 ' + (sk.need - stats.wins) + ' 场胜利才能解锁'); return; }
+        prefs.skin = sk.id; save(PREF_KEY, prefs); applySkin(); renderSkins(); sfxTap();
+      };
+      box.appendChild(el);
+    });
+  }
+
+  function applySkin() { document.body.dataset.skin = prefs.skin; }
+
+  var ACHS = [
+    { name: '首胜', desc: '赢下第一局', icon: 'i-shield', on: function () { return stats.wins >= 1; } },
+    { name: '初次加冕', desc: '首次登顶获胜', icon: 'i-crown', on: function () { return stats.hillWins >= 1; } },
+    { name: '三连胜', desc: '连胜达到 3 场', icon: 'i-bolt', on: function () { return stats.best >= 3; } },
+    { name: '十战之躯', desc: '累计完成 10 局', icon: 'i-medal', on: function () { return stats.games >= 10; } },
+    { name: '屠龙者', desc: '击败困难难度', icon: 'i-swords', on: function () { return stats.hardWins >= 1; } },
+    { name: '疾如闪电', desc: '12 回合内加冕', icon: 'i-trophy', on: function () { return stats.fastest !== null && stats.fastest <= 12; } }
+  ];
+
+  function renderAchievements() {
+    var box = $('achList'), n = 0;
+    box.innerHTML = '';
+    ACHS.forEach(function (a) {
+      var on = a.on(); if (on) n++;
+      var el = document.createElement('div');
+      el.className = 'ach';
+      el.dataset.on = String(on);
+      el.innerHTML = '<span class="ach-ico"><svg><use href="#' + a.icon + '" xlink:href="#' + a.icon + '"/></svg></span>' +
+        '<span><span class="ach-t">' + a.name + '</span><span class="ach-d">' + a.desc + '</span></span>';
+      box.appendChild(el);
+    });
+    $('achCount').textContent = n + ' / ' + ACHS.length;
+  }
+
+  var toastTimer = null;
+  function toast(msg) {
+    var t = $('toast');
+    t.textContent = msg;
+    t.classList.add('on');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { t.classList.remove('on'); }, 1800);
+  }
+
+  /* ================= 事件绑定 ================= */
+  boardEl.addEventListener('pointerdown', onDown);
+  boardEl.addEventListener('pointermove', onMove);
+  boardEl.addEventListener('pointerup', onUp);
+  boardEl.addEventListener('pointercancel', onUp);
+
+  $('segLevel').addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-level]');
+    if (!b) return;
+    level = b.dataset.level;
+    prefs.level = level; save(PREF_KEY, prefs);
+    Array.prototype.forEach.call(this.children, function (x) {
+      x.setAttribute('aria-pressed', String(x === b));
+    });
+    sfxTap();
   });
-}
 
-function fin(w,reason,moves,gn,res){
-  const wn=w?(w==='w'?'白方':'黑方'):'和棋';
-  let rt='';
-  if(reason==='checkmate')rt='将死';
-  else if(reason==='hill')rt='登顶';
-  else if(reason==='stalemate')rt='逼和';
-  else if(reason==='draw')rt='50回合/三次重复';
-  addLog('<div class="game-entry"><b>第'+gn+'局</b>：'+wn+'胜（'+rt+'）· '+moves+'步</div>');
-  res({winner:w,reason,moves});
-}
+  function launchPve() { startGame('pve', level); }
+  $('cardPve').addEventListener('click', function (e) {
+    if (e.target.closest('#segLevel')) return;
+    launchPve();
+  });
+  $('cardPve').addEventListener('keydown', function (e) { if (e.key === 'Enter') launchPve(); });
 
-function updateStats(){
-  document.getElementById('statWW').textContent=stats.ww;
-  document.getElementById('statBW').textContent=stats.bw;
-  document.getElementById('statDraw').textContent=stats.draw;
-  document.getElementById('statMate').textContent=stats.mate;
-  document.getElementById('statHill').textContent=stats.hill;
-  document.getElementById('statAvgMoves').textContent=stats.games?(stats.total/stats.games).toFixed(1):'-';
-}
-function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
+  $('cardPvp').addEventListener('click', function (e) {
+    if (e.target.closest('[data-rules]')) return;
+    startGame('pvp', level);
+  });
+  $('cardPvp').addEventListener('keydown', function (e) { if (e.key === 'Enter') startGame('pvp', level); });
 
-document.getElementById('btnPvE').onclick=()=>{
-  gameMode='pve';
-  newGame();
-  document.getElementById('resultBanner').className='result-banner';
-  logHtml=''; logEl.innerHTML='人机模式：你执白先行，AI执黑。王走到中间金色格就赢！';
-};
-document.getElementById('btnNewGame').onclick=()=>{
-  gameMode='pvp';
-  newGame();
-  document.getElementById('resultBanner').className='result-banner';
-  logHtml=''; logEl.innerHTML='双人对弈模式。';
-};
-document.getElementById('btnAI5').onclick=()=>{
-  document.getElementById('resultBanner').className='result-banner';
-  runAI(5);
-};
-document.getElementById('btnStop').onclick=()=>{autoRun=false;};
+  Array.prototype.forEach.call(document.querySelectorAll('[data-rules]'), function (b) {
+    b.addEventListener('click', function (e) { e.stopPropagation(); $('ovRules').classList.add('on'); });
+  });
+  $('btnRulesClose').addEventListener('click', function () { $('ovRules').classList.remove('on'); });
 
-newGame();
+  $('btnUndo').addEventListener('click', undoMove);
+  $('mUndo').addEventListener('click', undoMove);
+
+  function resign() {
+    if (over || !game) return;
+    endGame(game.turn() === 'w' ? 'b' : 'w', 'resign');
+  }
+  $('btnResign').addEventListener('click', resign);
+  $('mResign').addEventListener('click', resign);
+
+  $('btnNew').addEventListener('click', function () { startGame(mode, level); });
+  $('mNew').addEventListener('click', function () { startGame(mode, level); });
+
+  function goHome() {
+    setView('home');
+    if (clockTimer) { clearInterval(clockTimer); clockTimer = null; }
+    clockRunning = false;
+    over = true;
+    $('ovResult').classList.remove('on');
+    renderHomeStats();
+  }
+  $('btnHall').addEventListener('click', goHome);
+  $('mHome').addEventListener('click', goHome);
+
+  $('btnAgain').addEventListener('click', function () { startGame(mode, level); });
+  $('btnBackHall').addEventListener('click', goHome);
+
+  $('btnSound').addEventListener('click', function () {
+    prefs.sound = !prefs.sound;
+    save(PREF_KEY, prefs);
+    this.innerHTML = '<svg class="svg-ico"><use href="#' + (prefs.sound ? 'i-vol' : 'i-mute') + '" xlink:href="#' + (prefs.sound ? 'i-vol' : 'i-mute') + '"/></svg>';
+    if (prefs.sound) sfxTap();
+    toast(prefs.sound ? '音效已开启' : '音效已静音');
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      $('ovRules').classList.remove('on');
+    }
+  });
+
+  /* ================= 启动 ================= */
+  function boot() {
+    applySkin();
+    $('btnSound').innerHTML = '<svg class="svg-ico"><use href="#' + (prefs.sound ? 'i-vol' : 'i-mute') + '" xlink:href="#' + (prefs.sound ? 'i-vol' : 'i-mute') + '"/></svg>';
+    Array.prototype.forEach.call($('segLevel').children, function (x) {
+      x.setAttribute('aria-pressed', String(x.dataset.level === level));
+    });
+    renderHomeStats();
+    renderSkins();
+    renderAchievements();
+    game = new Chess();
+    syncBoard(null);
+  }
+
+  boot();
+
+  window.__KOTH = {
+    start: function (m, l) { startGame(m || 'pve', l || 'normal'); },
+    state: function () { return { fen: game.fen(), over: over, result: result, turn: game.turn() }; }
+  };
+})();
 </script>
 </body>
 </html>
